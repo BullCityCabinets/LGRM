@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LGRM.XamF.Pages.CookbookPage"
+             Title ="My Cookbook"
+             >
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout x:Name="HeadControls" Orientation="Horizontal" >
+                <Button x:Name="CreateNewRecipe" Text="New" Command="{Binding CreateNewRecipeCommand}" />
+            </StackLayout>
+
+            <StackLayout x:Name="HeadInfo" Orientation="Horizontal" >
+                <Label Text="Recipes Saved" />
+                <Label Text="{Binding RecipesDisplayed.Count}" />
+            </StackLayout>
+
+
+            <ScrollView>
+                <CollectionView x:Name="RecipesCV"
+                                ItemSizingStrategy="MeasureFirstItem"
+                                VerticalOptions="FillAndExpand"
+                                SelectionMode="None"
+                                ItemsSource="{Binding RecipesDisplayed}"
+                                SelectedItem="{Binding SelectedItem}"
+                                >
+
+                    <CollectionView.EmptyView>
+                        <Label Text="Your cookbook is empty!"/>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid 
+                                RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="78" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="78" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="28" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="28" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Recipe Name... -->
+                                <Label Text="{Binding Name}" 
+                                        Grid.Column="1" Grid.Row="0" />
+
+                                <!-- Recipe Info Stack... -->
+                                <StackLayout Orientation="Horizontal" 
+                                             Grid.Column="1" Grid.Row="1" 
+                                             Grid.ColumnSpan="2" >
+                                    <Label Text="Serves" />
+                                    <Label Text="{Binding RecipeServes}" />
+                                    <Label Text=", " />
+                                    <Label Text="{Binding IngredientCount}" />
+                                    <Label Text="Ingredients" />
+                                </StackLayout>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+
+
+            </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

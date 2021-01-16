@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LGRM.XamF.Pages.RecipePage"
+             xmlns:controls="clr-namespace:LGRM.XamF.Pages"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             >
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" >
+                
+                <StackLayout x:Name="NameAndControls" Orientation="Horizontal" BackgroundColor="Aqua" Spacing="0">
+                    <!--HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30, Margin = 0 />-->
+                    <skia:SKCanvasView x:Name="canvasL" PaintSurface="canvasL_PaintSurface" />                    
+                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}"/>
+                    <skia:SKCanvasView x:Name="canvasR" PaintSurface="canvasR_PaintSurface" />
+                    <Button Text = "Clear"  ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}"/>
+                    <skia:SKCanvasView x:Name="canvasR2" PaintSurface="canvasR2_PaintSurface" />                    
+                </StackLayout>
+
+
+                <StackLayout x:Name="Summaries" > 
+                    <!-- cs -->                    
+                    <Label Text="Serves:"/>
+                    <Label Text="{Binding Recipe.Serves}"/>
+                </StackLayout>
+
+
+                <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand"/> <!-- cs -->
+                
+                
+                
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
+    
+    
