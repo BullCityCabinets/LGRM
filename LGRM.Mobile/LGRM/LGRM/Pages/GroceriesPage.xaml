@@ -4,15 +4,15 @@
              x:Class="LGRM.XamF.Pages.GroceriesPage">
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout Orientation="Horizontal" >
-                <Picker ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" />
-                <SearchBar Placeholder="Search..." Text="{Binding SearchQuery}" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Picker x:Name="picker" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" />
+                <SearchBar Placeholder="Search..." Text="{Binding SearchQuery}" HorizontalOptions="Fill"/>
             </StackLayout>
 
             <CollectionView x:Name="GroceriesCollection" 
                             VerticalOptions="FillAndExpand"
                             SelectionMode="Multiple"
-                            ItemsSource="{Binding Groceries}"
+                            ItemsSource="{Binding DisplayedGroceries}"
                             SelectionChangedCommand="{Binding SelectedGroceriesChanged}"                            
                             SelectedItems="{Binding SelectedItems}">
                 

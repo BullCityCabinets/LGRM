@@ -13,16 +13,18 @@ namespace LGRM.XamF.ViewModels
 
         #region Members...
         Kind kind { get; set; }
-        ObservableCollection<Grocery> groceries { get; set; }
-        public ObservableCollection<Grocery> Groceries
+        ObservableCollection<Grocery> displayedGroceries { get; set; }
+        public ObservableCollection<Grocery> DisplayedGroceries
         {
-            get => groceries;
+            get => displayedGroceries;
             set
             {
-                groceries = value;
-                OnPropertyChanged("Groceries");
+                displayedGroceries = value;
+                OnPropertyChanged("DisplayedGroceries");
             }
         }
+
+        bool isLoading { get; set; } //See GroceriesVM.Initialize
 
         List<object> selectedGroceries { get; set; } //To capture View's binding input
         public List<object> SelectedItems
@@ -30,50 +32,34 @@ namespace LGRM.XamF.ViewModels
             get => selectedGroceries;
             set
             {
-                if (selectedGroceries != value)
-                {
-                    selectedGroceries = value;
-                    OnPropertyChanged("SelectedGroceries"); // neccessary?
+                if (selectedGroceries != value)                    
+                {   
+                    selectedGroceries = value;                    
+                    if (!isLoading)                    
+                    {                    
+                        OnPropertyChanged("SelectedGroceries"); // neccessary?                        
+                    }
                 }
             }
         }
 
-        ObservableCollection<string> categories { get; set; }
-        public ObservableCollection<string> Categories 
-        {
-            get => categories;
-            set
-            {
-                categories = value;                    
-                OnPropertyChanged("Categories");
-            }
-        }
-
-
-
-        object selectedCategory { get; set; }
-        public object SelectedCategory
-        {
-            get => selectedCategory;
-            set
-            {
-                selectedCategory = value;
-                Groceries = GetGroceries(searchQuery);
-                //SetShowSelectedItemsButton();
-                OnPropertyChanged("SelectedCategory");
-            }
-        }
-
+                
         private string searchQuery { get; set; }
         public string SearchQuery
         {
             get => searchQuery;
             set
             {
-                searchQuery = value;
-                OnPropertyChanged("SearchQuery");
-                //SetShowSelectedItemsButton();
-                OnSearchCommand(searchQuery);
+                if ( (string)selectedCategory != value )
+                {                    
+                    searchQuery = value;
+                    OnPropertyChanged("SearchQuery");
+                    //SetShowSelectedItemsButton();
+                    if (!isLoading)
+                    {
+                        OnSearchCommand(searchQuery);
+                    }
+                }
             }
         }
 
@@ -100,65 +86,84 @@ namespace LGRM.XamF.ViewModels
             }
         }
         public void OnSearchCommand(string query)
-        {
-            Groceries = GetGroceries( query);
+        {   
+            DisplayedGroceries = GetGroceries(query);
         }
 
 
 
         #endregion ... members
 
+        Kind[] kinds;
+        public List<ObservableCollection<string>> CategoriesList;
 
         public GroceriesVM()
         {
-            App.Groceries ??= new ObservableCollection<Grocery>(App.MySQLite.GetAllGroceries().OrderBy(g => g.Name1));
+            kinds = new Kind[] { Kind.Lean, Kind.Green, Kind.HealthyFat, Kind.Condiment, Kind.All };
+            CategoriesList = new List<ObservableCollection<string>>()
+                { new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>()  };
+
+            App.Groceries ??= new ObservableCollection<Grocery>( App.MySQLite.GroceryList??= new List<Grocery>(App.MySQLite.GetAllGroceries()) );
+            for (int i = 0; i < 4; i++)
+            {
+                var geez = App.Groceries.Where(g => g.Kind == kinds[i]);
+
+                CategoriesList[i].Add(App.V.CategoriesPickerDefault); // "All Categories"
+                foreach (var c in geez.Select(g => g.Category).Distinct().ToList())
+                {
+                    CategoriesList[i].Add(c);
+                }
+            }
+            CategoriesList[4].Add("Kind.All Selected!");
+            Categories = new ObservableCollection<string>( CategoriesList[0] );            
+            SelectedCategory = Categories[0];
+                        
+            priorCatNums = new List<int>();
+            currentCatNums  = new List<int>();
             SelectedItems = new List<object>();
-            
-            prior = new List<int>();
-            current  = new List<int>();
             SelectedGroceriesChanged = new Command(OnSelectedGroceriesChanged);
-            
+
             //SearchCommand = new Command<string>(OnSearchCommand);
             //ShowSelectedItemsCommand = new Command(OnShowSelectedItemsCommand);
 
         }
 
         public Command SelectedGroceriesChanged { get; set; }        
-        List<int> prior { get; set; }
-        List<int> current { get; set; }
+        List<int> priorCatNums { get; set; }
+        List<int> currentCatNums { get; set; }
         private void OnSelectedGroceriesChanged()
         {
             int CatalogNumberChanged;
             bool toBeAdded;
             Ingredient ingredientChanged;
 
-            current.Clear();
+            currentCatNums.Clear();
             foreach (var obj in SelectedItems)
             {
-                current.Add( (obj as Grocery).CatalogNumber );
+                currentCatNums.Add( (obj as Grocery).CatalogNumber );
             }
 
-            if ( prior.Count < current.Count ) // add item ...
+            if ( priorCatNums.Count < currentCatNums.Count ) // add item ...
             {
-                CatalogNumberChanged = current.Except(prior).ToList()[0]; // ... should only be 1 item in list
+                CatalogNumberChanged = currentCatNums.Except(priorCatNums).ToList()[0]; // ... should only be 1 item in list
                 toBeAdded = true;                
             }
             else // remove item ...
             {
-                CatalogNumberChanged = prior.Except(current).ToList()[0];
+                CatalogNumberChanged = priorCatNums.Except(currentCatNums).ToList()[0];
                 toBeAdded = false;
             }
 
-            ingredientChanged = new Ingredient(Groceries.FirstOrDefault(g => g.CatalogNumber == CatalogNumberChanged));
+            ingredientChanged = new Ingredient(DisplayedGroceries.FirstOrDefault(g => g.CatalogNumber == CatalogNumberChanged));
             var ResolveData = new object[] { ingredientChanged, toBeAdded };
             
             MessagingCenter.Send<GroceriesVM, object>(this, "UpdateIngredients", ResolveData);
 
             // Set up for next selection change ...
-            prior.Clear();
+            priorCatNums.Clear();
             foreach (var g in SelectedItems)
             {
-                prior.Add( ( g as Grocery ).CatalogNumber );
+                priorCatNums.Add( ( g as Grocery ).CatalogNumber );
             }
         }
 
@@ -166,33 +171,74 @@ namespace LGRM.XamF.ViewModels
 
         public override void Initialize(object parameter)
         {
-            this.kind = parameter switch
+            if (this.kind.ToString() != parameter.ToString())
             {
-                Kind.Lean       => Kind.Lean,
-                Kind.Green      => Kind.Green,
-                Kind.HealthyFat => Kind.HealthyFat,
-                Kind.Condiment  => Kind.Condiment,
-                            _   => Kind.All
-            };
-            SetCategories();
-            GetGroceries();
-            
+                this.kind = parameter switch
+                {
+                    Kind.Lean => Kind.Lean,
+                    Kind.Green => Kind.Green,
+                    Kind.HealthyFat => Kind.HealthyFat,
+                    Kind.Condiment => Kind.Condiment,
+                    _ => Kind.All
+                };
+                SetCategories();
+            }
+            SelectedCategory = Categories[0];
+            DisplayedGroceries = GetGroceries();
         }
                 
         void SetCategories()
         {
-            this.Groceries?.Clear();
-            this.Groceries ??= new ObservableCollection<Grocery>();
-            foreach (var item in App.Groceries.Where(g => g.Kind == kind)) { this.Groceries.Add(item); }
-    
-            Categories = new ObservableCollection<string>() { App.V.CategoriesPickerDefault };            
-            foreach (var c in Groceries.Select(g => g.Category).Distinct().ToList()) { Categories.Add(c); }
-
-            SelectedCategory = Categories[0]; // = "Show All"
-            
+            Categories = this.kind switch
+            {
+                Kind.Lean => CategoriesList[0],
+                Kind.Green => CategoriesList[1],
+                Kind.HealthyFat => CategoriesList[2],
+                Kind.Condiment => CategoriesList[3],
+                _ => CategoriesList[4],
+            };
         }
 
 
+        ObservableCollection<string> categories { get; set; }
+        public ObservableCollection<string> Categories
+        {
+            get => categories;
+            set
+            {
+                categories = value;
+                //if (!isLoading)
+                //{
+                    OnPropertyChanged("Categories");
+                //}
+            }
+        }
+
+
+        object selectedCategory { get; set; }
+        public object SelectedCategory
+        {
+            get { 
+                if (selectedCategory == null)
+                {
+                    return App.V.CategoriesPickerDefault;
+                }
+                else return selectedCategory; 
+            }
+            set
+            {
+                if (!isLoading && value != null && selectedCategory != value)
+                {
+                    selectedCategory = value;
+                    DisplayedGroceries = GetGroceries(searchQuery);
+                    //SetShowSelectedItemsButton();
+                    //OnPropertyChanged("SelectedCategory");
+
+                }
+                OnPropertyChanged("SelectedCategory");
+
+            }
+        }
 
 
 
@@ -227,11 +273,8 @@ namespace LGRM.XamF.ViewModels
         {
             var result = new ObservableCollection<Grocery>();
 
-            if(Categories == null)
-            {
-                SetCategories();
-            }
-
+            if(Categories == null) { SetCategories(); }
+            
             if (string.IsNullOrEmpty(query))
             {
                 if (SelectedCategory.ToString() == Categories[0])

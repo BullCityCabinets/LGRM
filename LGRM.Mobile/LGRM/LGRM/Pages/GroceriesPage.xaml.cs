@@ -27,9 +27,13 @@ namespace LGRM.XamF.Pages
             var fromHex = (IValueConverter)resourceValue;
             Application.Current.Resources.TryGetValue("StringExists2Visibility", out resourceValue);
             var ToBeVisible = (IValueConverter)resourceValue;
+
+            
+
+
             //Application.Current.Resources.TryGetValue("LocalConverterToHighlightSelections", out resourceValue);
             //var ToBeHighlighted = (IValueConverter)resourceValue;
-                        
+
             //switch (kind)
             //{
             //    case Kind.Lean:

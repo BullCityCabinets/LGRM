@@ -47,7 +47,7 @@ namespace LGRM.XamF.Services
         //public async Task<List<Grocery>> GetAllGroceriesAsync() => await Db.GetAllGroceriesAsync();
         public List<Grocery> GetAllGroceries()
         {
-            return GroceryList ??= Db.GetAllGroceries();
+            return GroceryList ??= new List<Grocery>( Db.GetAllGroceries() );
         }
 
         #endregion \\\ ...GROCERIES    ////////////////////////////////////////////////////////////////
