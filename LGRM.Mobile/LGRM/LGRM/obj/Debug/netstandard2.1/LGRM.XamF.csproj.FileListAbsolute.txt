@@ -13,7 +13,6 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Pages\LoginPage.xaml.g.cs
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Pages\RecipePage\RecipePage.xaml.g.cs
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Styles\Colors.xaml.g.cs
-C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Styles\Fonts.xaml.g.cs
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\LGRM.XamF.AssemblyInfoInputs.cache
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\LGRM.XamF.AssemblyInfo.cs
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\LGRM.XamF.csproj.CoreCompileInputs.cache
@@ -22,3 +21,5 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\LGRM.XamF.dll
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\ref\LGRM.XamF.dll
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\LGRM.XamF.pdb
+C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Styles\Standards.xaml.g.cs
+C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM\obj\Debug\netstandard2.1\Styles\TextAndFonts.xaml.g.cs

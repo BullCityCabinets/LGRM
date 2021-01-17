@@ -29,9 +29,9 @@ namespace LGRM.XamF.Pages
 
         public SkiaPainter()
         {
-            A1 = GetAppSkColor("NeutralBG");            
+            A1 = GetAppSkColor("NeutralBG1");            
             //A1 = Color.White.ToSKColor();
-            A2 = Color.LightGray.ToSKColor();
+            A2 = GetAppSkColor("NeutralBG2");
         }
 
         public SkiaPainter(Kind kind) : base()

@@ -8,34 +8,20 @@
     <ContentPage.Content>
         <ScrollView>
             
-            <StackLayout VerticalOptions="FillAndExpand" Spacing="0" >
-                
-                
-                
-                
-                <StackLayout x:Name="NameAndControls" Orientation="Horizontal" Spacing="0" Margin="0,8,0,0">
-
-                   
+            <StackLayout VerticalOptions="FillAndExpand" >
+                <StackLayout x:Name="NameAndControls" Style="{StaticResource H1StackHorizontal}">
                     <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
-                
-                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}" FontAttributes="Bold"
-                            Style="{StaticResource H1Button}" BackgroundColor="{StaticResource NeutralBG}" />
-
+                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}" BackgroundColor="{StaticResource NeutralBG1}" Style="{StaticResource H1Button}" />
                     <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
-                    
-                    <Button ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}" 
-                            Style="{StaticResource H2Button}" BackgroundColor="LightGray"/>
-
+                    <Button ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}" BackgroundColor="{StaticResource NeutralBG2}" Style="{StaticResource H2Button}" />
                     <skia:SKCanvasView x:Name="canvas3" PaintSurface="canvas_Sub2Open" />
-                    
-                    
                 </StackLayout>
 
 
                 
                 
                 
-                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG}" >
+                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG1}" >
                     <StackLayout x:Name="Serves" Orientation="Horizontal"  >
                         <!-- cs --> 
                         <!--<Label Text="Serves:"/> <Label Text="{Binding Recipe.Serves}"/>-->

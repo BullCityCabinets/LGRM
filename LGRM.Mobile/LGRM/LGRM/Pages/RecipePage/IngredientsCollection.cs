@@ -60,7 +60,7 @@ namespace LGRM.XamF.Pages
                     colorA1 = (Color)resourceValue;
                     Application.Current.Resources.TryGetValue("LeansA2", out resourceValue);
                     colorA2 = (Color)resourceValue;
-                    Application.Current.Resources.TryGetValue("NeutralBG", out resourceValue);
+                    Application.Current.Resources.TryGetValue("NeutralBG1", out resourceValue);
                     colorB1 = (Color)resourceValue;
                     headerLabelString = "Leans";
                     itemsSourcePropertyString = "Leans";
@@ -270,42 +270,48 @@ namespace LGRM.XamF.Pages
                 #region    // DATATEMPLATE: USER SERVING SIZES (Top Right Corner)    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 var userUOMFontSize = Device.GetNamedSize(NamedSize.Body, typeof(Label));
 
+                Application.Current.Resources.TryGetValue("UomLabel", out var resourceValue);
+                var UomLabelstyle = (Style)resourceValue;
+                Application.Current.Resources.TryGetValue("UomEntry", out resourceValue);
+                var UomEntrystyle = (Style)resourceValue;
+
+
                 var userUOMStack = new StackLayout() { HorizontalOptions = LayoutOptions.Start, Padding = new Thickness(0, 8, 0, 8), Spacing = -2, };
 
                 var userUOMP = new StackLayout() { Orientation = StackOrientation.Horizontal, HorizontalOptions = LayoutOptions.Start };
                 var uomText = new String[2] { "QtyPortion", "UomPortion" };
-                var entryP = new UOMEntry();
+                var entryP = new Entry() { Style = UomEntrystyle };
                 entryP.SetBinding(Entry.TextProperty, uomText[0]);
-                var labelP = new UOMLabel() { TextColor = defaultTextColor };
+                var labelP = new Label() { Style = UomLabelstyle };
                 labelP.SetBinding(Label.TextProperty, uomText[1]);
 
 
                 var userUOMW = new StackLayout() { Orientation = StackOrientation.Horizontal, HorizontalOptions = LayoutOptions.Start };
                 uomText = new String[2] { "QtyWeight", "UomWeight" };
-                var entryW = new UOMEntry();
+                var entryW = new Entry() { Style = UomEntrystyle };
                 entryW.SetBinding(Entry.TextProperty, uomText[0]);
                 entryW.SetBinding(Entry.IsVisibleProperty, uomText[1], converter: ToBeVisible);
-                var labelW = new UOMLabel() { TextColor = defaultTextColor };
+                var labelW = new Label() { Style = UomLabelstyle };
                 labelW.SetBinding(Label.TextProperty, uomText[1]);
                 labelW.SetBinding(Label.IsVisibleProperty, uomText[1], converter: ToBeVisible);
 
 
                 var userUOMV = new StackLayout() { Orientation = StackOrientation.Horizontal, HorizontalOptions = LayoutOptions.Start };
                 uomText = new String[2] { "QtyVolume", "UomVolume" };
-                var entryV = new UOMEntry();
+                var entryV = new Entry() { Style = UomEntrystyle };
                 entryV.SetBinding(Entry.TextProperty, uomText[0]);
                 entryV.SetBinding(Entry.IsVisibleProperty, uomText[1], converter: ToBeVisible);
-                var labelV = new UOMLabel() { TextColor = defaultTextColor };
+                var labelV = new Label() { Style = UomLabelstyle };
                 labelV.SetBinding(Label.TextProperty, uomText[1]);
                 labelV.SetBinding(Label.IsVisibleProperty, uomText[1], converter: ToBeVisible);
 
 
                 var userUOMC = new StackLayout() { Orientation = StackOrientation.Horizontal, HorizontalOptions = LayoutOptions.Start };
                 uomText = new String[2] { "QtyCount", "UomCount" };
-                var entryC = new UOMEntry();
+                var entryC = new Entry() { Style = UomEntrystyle };
                 entryC.SetBinding(Entry.TextProperty, uomText[0]);
                 entryC.SetBinding(Entry.IsVisibleProperty, uomText[1], converter: ToBeVisible);
-                var labelC = new UOMLabel() { TextColor = defaultTextColor };
+                var labelC = new Label() { Style = UomLabelstyle };
                 labelC.SetBinding(Label.TextProperty, uomText[1]);
                 labelC.SetBinding(Label.IsVisibleProperty, uomText[1], converter: ToBeVisible);
 

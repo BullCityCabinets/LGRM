@@ -3,37 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
 
-    <Color x:Key="GeneralBG">#FFFFFF</Color>    <!--#0A1A23-->
-    <Color x:Key="NeutralBG">#ece6bb</Color>
-    
-    <Color x:Key="LeansA1">#8a5387</Color>
-    <Color x:Key="LeansA2">#7a81ff</Color>
-
-    <Color x:Key="LeansI1">#ff6a39</Color>    
-    <Color x:Key="LeansI2">#ff8057</Color>
-    <Color x:Key="LeansI3">#ff9674</Color>    
-
-    <Color x:Key="GreensA1">#31a27a</Color>
-    <Color x:Key="GreensA2">#007955</Color>
-    <Color x:Key="GreensI1">#009bff</Color>    
-    <Color x:Key="GreensI2">#00d0ff</Color>
-    <Color x:Key="GreensI3">#7cffff</Color>    
-
-    <Color x:Key="HealthyFatsA1">#2a8aa0</Color>
-    <Color x:Key="HealthyFatsA2">#ff7145</Color>
-    <Color x:Key="HealthyFatsI1">#ffe39b</Color>
-
-    <Color x:Key="CondimentsA1">#df9234</Color>
-    <Color x:Key="CondimentsA2">#47878d</Color>
-    <Color x:Key="CondimentsI1">#98fff6</Color>
-
-    <Color x:Key="Grey100">#4F6979</Color>
-    <Color x:Key="Grey50">#27353D</Color>
-
-    <Color x:Key="DefaultEntryBG">#f7f7f7</Color>
-    <Color x:Key="DefaultTextColor" >#003447</Color>
-
-
-    
 
 </ResourceDictionary>

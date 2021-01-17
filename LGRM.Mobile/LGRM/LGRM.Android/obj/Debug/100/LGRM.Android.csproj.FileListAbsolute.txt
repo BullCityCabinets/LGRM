@@ -61,15 +61,12 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\mipmap-xxxhdpi\icon.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\mipmap-xxxhdpi\launcher_foreground.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\canned.png
-C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_add_circle_black_18dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_add_circle_white_24x24.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_check_box_white_18dp.png
-C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_clear_black_18dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_clear_white_18dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_edit_white_24dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_face_white_18.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_menu_book_white_18.png
-C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\baseline_remove_circle_black_18dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\dairy.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\eggs.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\farm.png
@@ -638,3 +635,4 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\sta
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_GenerateJavaStubs.stamp
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\plus_white_18dp.png

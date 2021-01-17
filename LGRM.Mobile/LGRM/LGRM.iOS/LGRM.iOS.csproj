@@ -240,6 +240,9 @@
   <ItemGroup>
     <BundleResource Include="Resources\Raw.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\plus_white_18dp.png" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties TriggeredFromHotReload="False" />
