@@ -291,6 +291,8 @@ namespace LGRM.XamF.ViewModels
 
 
         private INavigationService _navigationService;
+        public ICommand VerifyClearRecipeCommand { get; set; }
+        public ICommand SaveRecipeCommand { get; set; }
 
         #region CTOR...
         public RecipeVM(/*IPieDataService pieDataService,*/ INavigationService navigationService)
@@ -304,20 +306,32 @@ namespace LGRM.XamF.ViewModels
             Condiments  = new ObservableCollection<Ingredient>();
             FixForCollectionViewsEmptyViewToDisplay();
 
+            Leans.CollectionChanged += CollectionContentsChanged;  //~~ To alert lists when their contents change (Xamarin doens't do this, naturally) https://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
+            Greens.CollectionChanged += CollectionContentsChanged;
+            HealthyFats.CollectionChanged += CollectionContentsChanged;
+            Condiments.CollectionChanged += CollectionContentsChanged;
+
 
             //MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnNewRecipeSavedCommand);   // ...from Lists of Groceries
             MessagingCenter.Subscribe< GroceriesVM, object >(this, "UpdateIngredients", UpdateRecipeIngredients);   // ...from Lists of Groceries
 
+            //VerifyClearRecipeCommand = new Command(OnVerifyClearRecipeCommand);
+            //SaveRecipeCommand = new Command(OnSaveRecipeCommand);
 
-        
         }
 
         public override void Initialize(object parameter)
         {
             if (parameter == null)
+            {
                 Recipe = new Recipe();
+            }
             else
+            {
                 Recipe = parameter as Recipe;
+            }
+
+            UpdateOnServingsChanged();
         }
 
         public void FixForCollectionViewsEmptyViewToDisplay() // Without this, the collection views will not display "Empty View" on startup ...
@@ -601,19 +615,6 @@ namespace LGRM.XamF.ViewModels
         }   // called when the property of an object inside the collection changes
 
         #endregion ... to update summary when ingredient lists change
-
-        
-
-
-
-
-
-
-
-
-
-
-
         #endregion ... methods
 
 

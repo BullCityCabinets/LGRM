@@ -139,12 +139,13 @@
 
     <!--    H1...     -->
     <!--    H1 Layouts...     -->
-    <Style x:Key="H1StackHorizontal"
-           TargetType="StackLayout" BasedOn="{StaticResource BaseStack}"  >
+    <Style x:Key="H1HorizontalStack"
+          TargetType="StackLayout" BasedOn="{StaticResource BaseStack}"  >
         <Setter Property="Orientation" Value="Horizontal" />
         <Setter Property="Margin" Value="0,8,0,0" />
         <Setter Property="HeightRequest" Value="40" />
     </Style>
+
 
     <!--    H1 Views...     -->
     <Style x:Key="H1Label"
@@ -172,6 +173,9 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
+    
+    
+    
     <!--    H2 Views...     -->
     <Style x:Key="H2Button"
            TargetType="Button" BasedOn="{StaticResource BaseButton}"  >
@@ -180,9 +184,19 @@
         <Setter Property="FontSize" Value="{StaticResource H2FontSize}" />
     </Style>
 
+    
+    
+    
+    <!--    Body Layouts...     -->
+    <Style x:Key="HorizontalStack"
+           TargetType="StackLayout" BasedOn="{StaticResource BaseStack}"  >
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
 
-
-
+    
+    
+    
     <!--    Ingredient Views...     -->
     <Style x:Key="UomLabel"
            TargetType="Label" BasedOn="{StaticResource BaseLabel}"  >       
@@ -201,5 +215,24 @@
         <Setter Property="HeightRequest" Value="38" />
     </Style>
 
+    <!--<Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>-->
 
 </ResourceDictionary>

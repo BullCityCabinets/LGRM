@@ -88,6 +88,7 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\fresh.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\frozen.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\raw.png
+C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\plus_white_18dp.png
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\uploadflags.txt
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\resolvedassemblies.hash
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\android\assets\FormsViewGroup.dll
@@ -635,4 +636,3 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\sta
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_GenerateJavaStubs.stamp
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\stamp\_ResolveLibraryProjectImports.stamp
-C:\Users\ScumS\source\repos\LGRM\LGRM.Mobile\LGRM\LGRM.Android\obj\Debug\100\res\drawable\plus_white_18dp.png

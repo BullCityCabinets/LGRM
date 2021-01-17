@@ -9,7 +9,7 @@
         <ScrollView>
             
             <StackLayout VerticalOptions="FillAndExpand" >
-                <StackLayout x:Name="NameAndControls" Style="{StaticResource H1StackHorizontal}">
+                <StackLayout x:Name="NameAndControls" Style="{StaticResource H1HorizontalStack}">
                     <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
                     <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}" BackgroundColor="{StaticResource NeutralBG1}" Style="{StaticResource H1Button}" />
                     <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
@@ -21,14 +21,12 @@
                 
                 
                 
-                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG1}" >
-                    <StackLayout x:Name="Serves" Orientation="Horizontal"  >
-                        <!-- cs --> 
-                        <!--<Label Text="Serves:"/> <Label Text="{Binding Recipe.Serves}"/>-->
-                    </StackLayout>
+                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG1}" >                    
+                        <!-- cs -->                    
                 </StackLayout>
 
-                <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand"/> <!-- cs -->
+                <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand"/> 
+                <!-- cs -->
                 
                 
                 

@@ -11,23 +11,22 @@
         
         <StackLayout Spacing="0">
 
-            <StackLayout x:Name="CookbookControls" Style="{StaticResource H1StackHorizontal}">
+            <StackLayout x:Name="CookbookControls" Style="{StaticResource H1HorizontalStack}">
                 <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
                 <Label Text = "My Cookbook" BackgroundColor="{StaticResource NeutralBG1}" Style="{StaticResource H1Label}" />
                 <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
                 <Button ImageSource="plus_white_18dp.png" Command="{Binding CreateNewRecipeCommand}" BackgroundColor="{StaticResource NeutralBG2}" Style="{StaticResource H2Button}" />
                 <skia:SKCanvasView x:Name="canvas3" PaintSurface="canvas_Sub2Open" />
             </StackLayout>
-            
-            
 
-            <StackLayout x:Name="HeadInfo" Orientation="Horizontal"  BackgroundColor="{StaticResource NeutralBG1}">
-                <Label Text="Recipes Saved" />
-                <Label Text="{Binding RecipesDisplayed.Count}" />
-            </StackLayout>
+            <StackLayout BackgroundColor="{StaticResource NeutralBG1}" Padding="0,8,0,0" >
+                
+            <Label Text="{Binding RecipesDisplayed.Count, StringFormat='{0} Recipes Saved'}" HorizontalOptions="Center"/>
 
-
-            <ScrollView  BackgroundColor="{StaticResource NeutralBG1}">
+            <ScrollView   >
+                
+                
+                
                 <CollectionView x:Name="RecipesCV"
                                 ItemSizingStrategy="MeasureFirstItem"
                                 VerticalOptions="FillAndExpand"
@@ -42,7 +41,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid 
-                                RowSpacing="0">
+                                RowSpacing="0" BackgroundColor="AliceBlue">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="78" />
                                     <ColumnDefinition Width="*" />
@@ -60,13 +59,9 @@
 
                                 <!-- Recipe Info Stack... -->
                                 <StackLayout Orientation="Horizontal" 
-                                             Grid.Column="1" Grid.Row="1" 
-                                             Grid.ColumnSpan="2" >
-                                    <Label Text="Serves" />
-                                    <Label Text="{Binding RecipeServes}" />
-                                    <Label Text=", " />
-                                    <Label Text="{Binding IngredientCount}" />
-                                    <Label Text="Ingredients" />
+                                             Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" >
+                                    <Label Text="{Binding Serves, StringFormat='Recipe Serves {0} w/ '}" />
+                                    <Label Text="{Binding Ingredients.Count, StringFormat='{0} Ingredients'}" />
                                 </StackLayout>
 
                             </Grid>
@@ -79,7 +74,7 @@
             </ScrollView>
 
 
-
+            </StackLayout>
 
 
 

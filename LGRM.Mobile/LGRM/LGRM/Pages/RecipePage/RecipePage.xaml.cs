@@ -28,7 +28,19 @@ namespace LGRM.XamF.Pages
             Summaries.Children.Add( new SummaryBy(Kind.Green) );
             Summaries.Children.Add( new SummaryBy(Kind.HealthyFat) );
             Summaries.Children.Add( new SummaryBy(Kind.Condiment) );
-            Summaries.Children.Add(new SummaryBy(Kind.All)); // "Serves: __"
+
+            var servingsStack = new StackLayout() { Orientation = StackOrientation.Horizontal, HorizontalOptions = LayoutOptions.Center };
+            Application.Current.Resources.TryGetValue("UomEntry", out var resourceValue);
+            var entryStyle = (Style)resourceValue;
+            var recipesServesEntry = new Entry() { Style = entryStyle };
+            recipesServesEntry.SetBinding(Entry.TextProperty, "RecipeServes");
+            Application.Current.Resources.TryGetValue("UomLabel", out resourceValue);
+            var labelStyle = (Style)resourceValue;
+            var recipesServesLabel = new Label() { Style = labelStyle, Text=" Total Servings" };
+
+            servingsStack.Children.Add(recipesServesEntry);
+            servingsStack.Children.Add(recipesServesLabel);
+            Summaries.Children.Add(servingsStack);
 
             IngredientLists.Children.Add( new IngredientsCollection(Kind.Lean) );
             IngredientLists.Children.Add( new IngredientsCollection(Kind.Green) );

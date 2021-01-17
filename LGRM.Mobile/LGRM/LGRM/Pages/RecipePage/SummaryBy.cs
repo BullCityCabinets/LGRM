@@ -41,15 +41,15 @@ namespace LGRM.XamF.Pages
                 case Kind.Condiment:
                     text = new String[4] { "Condiments: ", "TotalCs", "RecommendedCs", "BGStateC" };
                     break;
-                default:
-                    text = new string[2] { "Recipe Serves:", "Recipe.Serves" };
-                    break;
+                //default:
+                //    text = new string[2] { "Recipe Serves:", "Recipe.Serves" };
+                //    break;
             }
 
             this.Orientation = StackOrientation.Horizontal;
             this.HorizontalOptions = LayoutOptions.Center;
 
-            if (kind != Kind.All)
+            //if (kind != Kind.All)
             {
                 var label1 = new Label() { TextColor = textColor, FontSize = fontSize, Padding = 0, WidthRequest = 110, Text = text[0] };
 
@@ -70,15 +70,15 @@ namespace LGRM.XamF.Pages
 
                 this.SetBinding(StackLayout.BackgroundColorProperty, text[3], converter: evaluateState);
             }
-            else // This is the "Serves: X " line...
-            {
-                var labelServes = new Label() { TextColor = textColor, FontSize = fontSize, Padding = 0, WidthRequest = 110, Text = text[0] };
-                var entryServes = new Entry() { TextColor = textColor, FontSize = fontSize, WidthRequest = 80, HorizontalTextAlignment = TextAlignment.Center };
-                entryServes.SetBinding(Entry.TextProperty, text[1]);
+            //else // This is the "Serves: X " line...
+            //{
+            //    var labelServes = new Label() { TextColor = textColor, FontSize = fontSize, Padding = 0, WidthRequest = 110, Text = text[0] };
+            //    var entryServes = new Entry() { TextColor = textColor, FontSize = fontSize, WidthRequest = 80, HorizontalTextAlignment = TextAlignment.Center };
+            //    entryServes.SetBinding(Entry.TextProperty, text[1]);
 
-                this.Children.Add(labelServes);
-                this.Children.Add(entryServes);
-            }
+            //    this.Children.Add(labelServes);
+            //    this.Children.Add(entryServes);
+            //}
 
         }       
 
