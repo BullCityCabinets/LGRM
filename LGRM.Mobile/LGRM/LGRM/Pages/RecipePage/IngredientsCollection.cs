@@ -11,9 +11,10 @@ namespace LGRM.XamF.Pages
     public partial class IngredientsCollection : StackLayout
     {
         private ActivityIndicator indicator;
-
-        public Color colorA2;
+                
         public Color colorA1;
+        public Color colorA2;
+        public Color colorB1;
 
         public string headerLabelString;
         public string itemsSourcePropertyString;
@@ -31,27 +32,10 @@ namespace LGRM.XamF.Pages
             #region Colors...
             Application.Current.Resources.TryGetValue("String2HexColor", out var resourceValue);
             var fromHex = (IValueConverter)resourceValue;
-
-            Application.Current.Resources.TryGetValue("LeansA1", out resourceValue);
-            var colorLA1 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("LeansA2", out resourceValue);
-            var colorLA2 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("GreensA1", out resourceValue);
-            var colorGA1 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("GreensA2", out resourceValue);
-            var colorGA2 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("HealthyFatsA1", out resourceValue);
-            var colorHA1 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("HealthyFatsA2", out resourceValue);
-            var colorHA2 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("CondimentsA1", out resourceValue);
-            var colorCA1 = (Color)resourceValue;
-            Application.Current.Resources.TryGetValue("CondimentsA2", out resourceValue);
-            var colorCA2 = (Color)resourceValue;
-
             var frameBorderColor = Color.Gray;
-            Application.Current.Resources.TryGetValue("GeneralBG", out resourceValue);
-            var colorGeneralBG = (Color)resourceValue;
+
+            //////////////Application.Current.Resources.TryGetValue("GeneralBG", out resourceValue);
+            //////////////var colorGeneralBG = (Color)resourceValue;
             Application.Current.Resources.TryGetValue("DefaultTextColor", out resourceValue);
             var defaultTextColor = (Color)resourceValue;
             //Application.Current.Resources.TryGetValue("DefaultEntryBG", out resourceValue);
@@ -61,17 +45,23 @@ namespace LGRM.XamF.Pages
 
             #endregion Colors... ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region Font Sizes...
-            var fontL = Device.GetNamedSize(NamedSize.Large, typeof(Label));
-            var fontM = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-            var fontB = Device.GetNamedSize(NamedSize.Body, typeof(Label));
+            Application.Current.Resources.TryGetValue("FontL", out resourceValue);
+            var fontL = (Double)resourceValue;
+            //var fontL = 20; //Device.GetNamedSize(NamedSize.Large, typeof(Label));
+            var fontM = 14; //Device.GetNamedSize(NamedSize.Medium, typeof(Label));
+            var fontB = 14; // Device.GetNamedSize(NamedSize.Body, typeof(Label));
             #endregion Font Sizes... ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region Kind Switch...
             switch (kind)
             {
                 case Kind.Lean:
                     //pageToNavigateTo = App.LeansPage;
-                    colorA1 = colorLA1;
-                    colorA2 = colorLA2;
+                    Application.Current.Resources.TryGetValue("LeansA1", out resourceValue);
+                    colorA1 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("LeansA2", out resourceValue);
+                    colorA2 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("NeutralBG", out resourceValue);
+                    colorB1 = (Color)resourceValue;
                     headerLabelString = "Leans";
                     itemsSourcePropertyString = "Leans";
                     heightRequestPropertyString = "HeightL";
@@ -79,8 +69,12 @@ namespace LGRM.XamF.Pages
 
                 case Kind.Green:
                     //pageToNavigateTo = App.GreensPage;
-                    colorA1 = colorGA1;
-                    colorA2 = colorGA2;
+                    Application.Current.Resources.TryGetValue("GreensA1", out resourceValue);
+                    colorA1 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("GreensA2", out resourceValue);
+                    colorA2 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("LeansA1", out resourceValue);
+                    colorB1 = (Color)resourceValue;
                     headerLabelString = "Greens";
                     itemsSourcePropertyString = "Greens";
                     heightRequestPropertyString = "HeightG";
@@ -88,8 +82,12 @@ namespace LGRM.XamF.Pages
 
                 case Kind.HealthyFat:
                     //pageToNavigateTo = App.HealthyFatsPage;
-                    colorA1 = colorHA1;
-                    colorA2 = colorHA2;
+                    Application.Current.Resources.TryGetValue("HealthyFatsA1", out resourceValue);
+                    colorA1 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("HealthyFatsA2", out resourceValue);
+                    colorA2 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("GreensA1", out resourceValue);
+                    colorB1 = (Color)resourceValue;
                     headerLabelString = "Healthy Fats";
                     itemsSourcePropertyString = "HealthyFats";
                     heightRequestPropertyString = "HeightH";
@@ -97,8 +95,12 @@ namespace LGRM.XamF.Pages
 
                 case Kind.Condiment:
                     //pageToNavigateTo = App.CondimentsPage;
-                    colorA1 = colorCA1;
-                    colorA2 = colorCA2;
+                    Application.Current.Resources.TryGetValue("CondimentsA1", out resourceValue);
+                    colorA1 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("CondimentsA2", out resourceValue);
+                    colorA2 = (Color)resourceValue;
+                    Application.Current.Resources.TryGetValue("HealthyFatsA1", out resourceValue);
+                    colorB1 = (Color)resourceValue;
                     headerLabelString = "Condiments";
                     itemsSourcePropertyString = "Condiments";
                     heightRequestPropertyString = "HeightC";
@@ -114,10 +116,10 @@ namespace LGRM.XamF.Pages
             BackgroundColor = colorA1;
 
             #region //     HEADER w/ NAV      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            var header = new StackLayout { Orientation = StackOrientation.Horizontal, Spacing = 0, BackgroundColor = colorGeneralBG, HeightRequest = 40, Margin = 0 };
+            var header = new StackLayout { Orientation = StackOrientation.Horizontal, Spacing = 0, BackgroundColor = colorB1, HeightRequest = 40, Margin = 0 };
 
             var canvasL = new SKCanvasView() { HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30 };
-            canvasL.PaintSurface += skiaPainter.OnCanvasPaintSurfaceL;
+            canvasL.PaintSurface += skiaPainter.OnCanvasPaint_Open2Title;
             var headerLabel = new Label()
             {
                 Text = headerLabelString,
@@ -128,10 +130,10 @@ namespace LGRM.XamF.Pages
                 BackgroundColor = colorA1,
                 HeightRequest = 40,
                 LineBreakMode = LineBreakMode.MiddleTruncation,
-                Padding = new Thickness(10, 0)
+                Padding = new Thickness(10, 0),                 
             };
             var canvasR = new SKCanvasView() { HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30 };
-            canvasR.PaintSurface += skiaPainter.OnCanvasPaintSurfaceR;
+            canvasR.PaintSurface += skiaPainter.OnCanvasPaint_Title2Sub;
 
             #region // Navigation...            
             var headerButtonAddGroceries = new Button() { 
@@ -159,8 +161,8 @@ namespace LGRM.XamF.Pages
             #endregion // ... navigation
 
             var canvasR2 = new SKCanvasView() { HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30 };
-            canvasR2.PaintSurface += skiaPainter.OnCanvasPaintSurfaceR2;
-            indicator = new ActivityIndicator() { Color = colorA2, IsRunning = false, BackgroundColor = colorGeneralBG, Margin = new Thickness(0) };
+            canvasR2.PaintSurface += skiaPainter.OnCanvasPaint_Sub2Open;
+            indicator = new ActivityIndicator() { Color = Color.PaleGoldenrod, IsRunning = false, BackgroundColor = colorB1, Margin = new Thickness(0) };
 
             #endregion  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region//     COLLECTION CTOR      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

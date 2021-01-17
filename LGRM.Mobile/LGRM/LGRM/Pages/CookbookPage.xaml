@@ -2,29 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LGRM.XamF.Pages.CookbookPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              Title ="My Cookbook"
              >
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Spacing="0">
 
-            <StackLayout x:Name="HeadControls" Orientation="Horizontal" >
-                <Button x:Name="CreateNewRecipe" Text="New" Command="{Binding CreateNewRecipeCommand}" />
+            <StackLayout x:Name="CookbookControls" Orientation="Horizontal" Spacing="0" Margin="0,8,0,0" >
+
+                <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
+
+                <Label Text = "My Cookbook" 
+                            Style="{StaticResource H1Label}" BackgroundColor="{StaticResource NeutralBG}"/>
+
+                <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
+
+                <Button x:Name="CreateNewRecipe" Text="+" Command="{Binding CreateNewRecipeCommand}"                 
+                        Style="{StaticResource H2Button}" BackgroundColor="LightGray"/>
+
+                <skia:SKCanvasView x:Name="canvas3" PaintSurface="canvas_Sub2Open" />
+
             </StackLayout>
 
-            <StackLayout x:Name="HeadInfo" Orientation="Horizontal" >
+
+
+
+
+            <StackLayout x:Name="HeadInfo" Orientation="Horizontal"  BackgroundColor="{StaticResource NeutralBG}">
                 <Label Text="Recipes Saved" />
                 <Label Text="{Binding RecipesDisplayed.Count}" />
             </StackLayout>
 
 
-            <ScrollView>
+            <ScrollView  BackgroundColor="{StaticResource NeutralBG}">
                 <CollectionView x:Name="RecipesCV"
                                 ItemSizingStrategy="MeasureFirstItem"
                                 VerticalOptions="FillAndExpand"
                                 SelectionMode="None"
                                 ItemsSource="{Binding RecipesDisplayed}"
-                                SelectedItem="{Binding SelectedItem}"
-                                >
+                                SelectedItem="{Binding SelectedItem}" >
 
                     <CollectionView.EmptyView>
                         <Label Text="Your cookbook is empty!"/>

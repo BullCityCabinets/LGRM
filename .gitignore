@@ -1,3 +1,5 @@
 *.json
+\bin\*
+\obj\*
 # Note: To include specific json files, use:
 # !directory/*.json

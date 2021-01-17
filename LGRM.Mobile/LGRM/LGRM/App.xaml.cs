@@ -17,43 +17,22 @@ namespace LGRM.XamF
 
         public static NavigationService NavigationService { get; } = new NavigationService();
 
-        public static bool PageIsLoading { get; set; } = true;
-        public static bool RecipeIsLoading { get; set; }
+        //public static bool PageIsLoading { get; set; } = true;
+        //public static bool RecipeIsLoading { get; set; }
 
         //public static Kind[] kinds;
         //public static ObservableCollection<string>[] CategoriesList;
 
         public App()
         {
-            
             CompareVersion();
+
             InitializeComponent();
 
-            //App.Groceries ??= new ObservableCollection<Grocery>(App.MySQLite.GetAllGroceries().OrderBy(g => g.Name1));
-            //kinds = new Kind[] { Kind.Lean, Kind.Green, Kind.HealthyFat, Kind.Condiment, Kind.All };
-            //CategoriesList = new ObservableCollection<string>[]
-            //    { new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>(), new ObservableCollection<string>()  };
-
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    var geez = App.Groceries.Where(g => g.Kind == kinds[i]);
-
-            //    CategoriesList[i].Add(App.V.CategoriesPickerDefault); // "All Categories"
-            //    foreach (var c in geez.Select(g => g.Category).Distinct().ToList())
-            //    {
-            //        CategoriesList[i].Add(c);
-            //    }
-            //}
-            //CategoriesList[4].Add("Kind.All Selected!");
-
-
-
-            NavigationService.Configure("CookbookPage", typeof(CookbookPage));
-            NavigationService.Configure("RecipePage", typeof(RecipePage));
-            NavigationService.Configure("GroceriesPage", typeof(GroceriesPage));
+            NavigationServiceConfig();
 
             MainPage = new NavigationPage(new CookbookPage());
-            
+
         }
 
         public void CompareVersion()
@@ -71,5 +50,14 @@ namespace LGRM.XamF
             }
 
         }
+
+        public void NavigationServiceConfig()
+        {
+            NavigationService.Configure("CookbookPage", typeof(CookbookPage));
+            NavigationService.Configure("RecipePage", typeof(RecipePage));
+            NavigationService.Configure("GroceriesPage", typeof(GroceriesPage));
+
+        }
+
     }
 }

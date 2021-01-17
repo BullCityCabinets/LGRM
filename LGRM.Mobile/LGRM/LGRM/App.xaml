@@ -10,12 +10,53 @@
         <converter:ConvertString2HexColor x:Key="String2HexColor"/>
         <converter:ConvertStringExists2Visibility x:Key="StringExists2Visibility"/>
 
-        <ResourceDictionary Source= "Styles\Colors.xaml">
-            
-            
-            
-            <Color x:Key="DefaultText">#27353D</Color>
+        <ResourceDictionary Source="Styles\Fonts.xaml"/>
 
+        <ResourceDictionary Source= "Styles\Colors.xaml">
+
+            
+            <!--Explicit Styles...-->
+            <Style TargetType="View">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+
+            <Style x:Key="H1Label" TargetType="Label" >
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="H1Button" TargetType="Button" > 
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderWidth" Value="0" />
+                
+                <Setter Property="Padding" Value="0" />    
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="H2Button" TargetType="Button" BasedOn="{StaticResource H1Button}" >
+                <Setter Property="Margin" Value="0,10,0,0" />
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+
+            <!--Implicit Styles...-->
+            
+            <Color x:Key="DefaultText">#27353D</Color>          
+            
+            
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="#27353D" />
             </Style>
@@ -26,23 +67,26 @@
                 <!--<Setter Property="HeightRequest" Value="20"/>-->
                 <Setter Property="Margin" Value="0"/>
             </Style>
+            
             <Style TargetType="Picker">
                 <Setter Property="TextColor" Value="#27353D" />
             </Style>
+            
             <Style TargetType="SearchBar">
                 <Setter Property="TextColor" Value="#27353D" />
             </Style>
 
-            <!--<Style TargetType="Button">
-                <Setter Property="TextColor" Value="WhiteSmoke" />
-                <Setter Property="HeightRequest" Value="50"/>
-            </Style>-->
+            <Style TargetType="StackLayout">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Spacing" Value="0" />
+            </Style>
+
 
             <!--Default Stuff ... -->
 
-            <Color x:Key="Primary">#2196F3</Color>
+            <!--<Color x:Key="Primary">#2196F3</Color>-->
 
-            <Style TargetType="Button">
+            <!--<Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -60,9 +104,10 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
-            </Style>
+            </Style>-->
 
         </ResourceDictionary>
 
     </Application.Resources>
 </Application>
+    

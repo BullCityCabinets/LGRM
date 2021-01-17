@@ -2,35 +2,52 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LGRM.XamF.Pages.RecipePage"
-             xmlns:controls="clr-namespace:LGRM.XamF.Pages"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             >
+                          >
+    
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout VerticalOptions="FillAndExpand" >
+            
+            <StackLayout VerticalOptions="FillAndExpand" Spacing="0" >
                 
-                <StackLayout x:Name="NameAndControls" Orientation="Horizontal" BackgroundColor="Aqua" Spacing="0">
-                    <!--HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30, Margin = 0 />-->
-                    <skia:SKCanvasView x:Name="canvasL" PaintSurface="canvasL_PaintSurface" />                    
-                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}"/>
-                    <skia:SKCanvasView x:Name="canvasR" PaintSurface="canvasR_PaintSurface" />
-                    <Button Text = "Clear"  ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}"/>
-                    <skia:SKCanvasView x:Name="canvasR2" PaintSurface="canvasR2_PaintSurface" />                    
+                
+                
+                
+                <StackLayout x:Name="NameAndControls" Orientation="Horizontal" Spacing="0" Margin="0,8,0,0">
+
+                   
+                    <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
+                
+                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}" FontAttributes="Bold"
+                            Style="{StaticResource H1Button}" BackgroundColor="{StaticResource NeutralBG}" />
+
+                    <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
+                    
+                    <Button ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}" 
+                            Style="{StaticResource H2Button}" BackgroundColor="LightGray"/>
+
+                    <skia:SKCanvasView x:Name="canvas3" PaintSurface="canvas_Sub2Open" />
+                    
+                    
                 </StackLayout>
 
 
-                <StackLayout x:Name="Summaries" > 
-                    <!-- cs -->                    
-                    <Label Text="Serves:"/>
-                    <Label Text="{Binding Recipe.Serves}"/>
+                
+                
+                
+                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG}" >
+                    <StackLayout x:Name="Serves" Orientation="Horizontal"  >
+                        <!-- cs --> 
+                        <!--<Label Text="Serves:"/> <Label Text="{Binding Recipe.Serves}"/>-->
+                    </StackLayout>
                 </StackLayout>
-
 
                 <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand"/> <!-- cs -->
                 
                 
                 
 
+                
 
 
             </StackLayout>
