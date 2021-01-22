@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GYEWmYkOhGCX0RkrkrCgdnHqC9etWz9gzhxJafvU6HAZ7XGam3+rdFtjuhehw1Z5ukLTzALb7Pp/sAtyQ2W9yw==",
+  "dgSpecHash": "/0kSDtrw9DeubDL5srUMsIx3gcWfim1BJBFd4vSg9DyPiH+YAUuqhup5sEU64Pg7xaCzgc4FLZb7keHjL6VR5w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ScumS\\source\\repos\\LGRM 210119x crashes as release\\LGRM.Mobile\\LGRM\\LGRM.iOS\\LGRM.iOS.csproj",
+  "projectFilePath": "C:\\Users\\ScumS\\source\\repos\\LGRM\\LGRM.Mobile\\LGRM\\LGRM.iOS\\LGRM.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ScumS\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",

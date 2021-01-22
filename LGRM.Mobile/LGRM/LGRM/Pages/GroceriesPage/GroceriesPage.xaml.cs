@@ -77,6 +77,7 @@ namespace LGRM.XamF.Pages
             }
 
 
+            pickerStack.BackgroundColor = colorA1;
             picker.BackgroundColor = colorA1;
             cvStack.BackgroundColor = colorA1;
         }

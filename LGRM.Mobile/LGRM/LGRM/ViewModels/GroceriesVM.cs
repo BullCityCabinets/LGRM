@@ -245,6 +245,8 @@ namespace LGRM.XamF.ViewModels
                             var indexToHighlight = DisplayedGroceries.IndexOf(g);
                             SelectedItems.Add(DisplayedGroceries[indexToHighlight]);
                             priorCatNums.Add(catNum);
+                        g.IsSelected = true;
+
                         }
                     }
                 }

@@ -10,11 +10,23 @@
 
             <StackLayout x:Name="GroceriesControls" Style="{StaticResource H1HorizontalStack}" BackgroundColor="{StaticResource NeutralBG1}" Padding="0,8,0,0" Margin="0">
                 <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
-                <Picker x:Name="picker" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"  
-                        BackgroundColor="{Binding colorA1}" TextColor="White" FontAttributes="Bold" FontSize="Medium"/>
+
+                <StackLayout x:Name="pickerStack" Style="{StaticResource BaseStack}" 
+                             VerticalOptions="Fill" HeightRequest="40" Padding="0" Margin="0" >
+                    
+                    <Picker x:Name="picker" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" 
+                        TextColor="White" FontAttributes="Bold" FontSize="Medium" 
+                            Margin="0" HeightRequest="40"/>
+                    
+                </StackLayout>
+                
+                
+                
+                
+                
                 <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Title2Open" />
                 <Entry x:Name="searchEntry" Text="{Binding SearchQuery, Mode=TwoWay}" 
-                       Style="{StaticResource BaseEntry}" BackgroundColor="{StaticResource NeutralBG1}" WidthRequest="100" Margin="0" VerticalOptions="Fill"/>
+                       Style="{StaticResource BaseEntry}" WidthRequest="100" Margin="0" VerticalOptions="Fill" BackgroundColor="{StaticResource DefaultEntryBG}"/>
                 <Button ImageSource="baseline_clear_white_18dp.png" Clicked="ClearSearch_Clicked" IsVisible="{Binding ClearSearchIsVisible}" 
                         Style="{StaticResource H2Button}" BackgroundColor="{StaticResource NeutralBG1}" Padding="4,0"/>
                                 

@@ -10,8 +10,15 @@ namespace LGRM.XamF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var c = Color.FromHex((string)value);
-            return c;
+
+            if (value != null)
+            {
+                var c = Color.FromHex((string)value);
+                return c;
+            }
+            else return new object();
+
+
         }
 
 

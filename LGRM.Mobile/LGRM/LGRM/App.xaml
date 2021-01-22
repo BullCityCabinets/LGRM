@@ -129,6 +129,7 @@
                 <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
                 <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
                 <Setter Property="Padding" Value="0" />
+                <Setter Property="BackgroundColor" Value="LightBlue" />
             </Style>
 
             <Style x:Key="BaseEntry"           
@@ -198,6 +199,8 @@
                 <Setter Property="Margin" Value="0,8,0,0" />
                 <Setter Property="WidthRequest" Value="30" />
                 <Setter Property="FontSize" Value="{StaticResource H2FontSize}" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                
             </Style>
 
 

@@ -122,12 +122,21 @@ namespace LGRM.Model
         [Ignore] [JsonIgnore]
         public string EtcString
         {
+            
             get
-            {
-                string myString = null;
-                myString += Category.Trim() + " ";
+            {   // iOS needs all these null checks!
+                string myString = "";
+                if (!string.IsNullOrWhiteSpace(Info1String))                    
+                {
+                    myString += Info1String.Trim() + " ";
+                }
+
+                if (!string.IsNullOrWhiteSpace(Category))                    
+                {
+                    myString += Category.Trim() + " ";
+                }
                 
-                if (Desc1 != null)
+                if ( !string.IsNullOrWhiteSpace( Desc1 ) )
                 {
                     myString += (Desc1.Trim() + " ");
                 }
