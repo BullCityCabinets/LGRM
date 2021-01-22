@@ -11,10 +11,10 @@ namespace LGRM.Model
         ///    MEMBERS    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
         #region Private Members ...
-        private int id { get; set; }
-        private string name { get; set; }
-        private float serves { get; set; }
-        private ObservableCollection<Ingredient> ingredients { get; set; }
+        int id { get; set; }
+        string name { get; set; }
+        float serves { get; set; }
+        ObservableCollection<Ingredient> ingredients { get; set; }
         #endregion ... Private Members
 
         #region Public Members w/ Private Backers...
@@ -28,7 +28,6 @@ namespace LGRM.Model
                 RaisePropertyChanged(nameof(Id));
             }
         }
-
         public string Name
         {
             get => name;
@@ -38,7 +37,6 @@ namespace LGRM.Model
                 RaisePropertyChanged(nameof(Name));
             }
         }
-
         public float Serves
         {
             get => serves;
@@ -48,7 +46,6 @@ namespace LGRM.Model
                 RaisePropertyChanged(nameof(Serves));
             }
         }
-
         
         [Ignore] [JsonIgnore]
         public ObservableCollection<Ingredient> Ingredients
@@ -65,7 +62,7 @@ namespace LGRM.Model
         #region Other Public Members ...
         public const string defaultName = "My New Recipe";
         public int IngredientsCount { get; set; } // ... to display on LoadRecipePage
-
+        
         #endregion Other Public Members ...
 
 
@@ -91,12 +88,14 @@ namespace LGRM.Model
         {
             Id = recipeToLoad.Id;
             Name = recipeToLoad.Name;
-            //HasBeenSaved = true;
             Ingredients = new ObservableCollection<Ingredient>();
             Ingredients = recipeToLoad.Ingredients;
-            //IngredientCount = Ingredients.Count;
             Serves = recipeToLoad.Serves;
         }
+
+
+
+
 
 
 

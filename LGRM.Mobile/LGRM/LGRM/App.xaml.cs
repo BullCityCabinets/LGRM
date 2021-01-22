@@ -1,11 +1,9 @@
-﻿using LGRM.Model;
-using LGRM.XamF.Pages;
-using LGRM.XamF.Services;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using LGRM.Model;
+using LGRM.XamF.Pages;
+using LGRM.XamF.Services;
 
 namespace LGRM.XamF
 {
@@ -14,23 +12,13 @@ namespace LGRM.XamF
         public static SQLiteDataService MySQLite { get; } = new SQLiteDataService();
         public static VersionService V { get; } = new VersionService(new MockRemoteDataService());
         public static ObservableCollection<Grocery> Groceries { get; set; }
-
         public static NavigationService NavigationService { get; } = new NavigationService();
-
-        //public static bool PageIsLoading { get; set; } = true;
-        //public static bool RecipeIsLoading { get; set; }
-
-        //public static Kind[] kinds;
-        //public static ObservableCollection<string>[] CategoriesList;
 
         public App()
         {
             CompareVersion();
-
             InitializeComponent();
-
             NavigationServiceConfig();
-
             MainPage = new NavigationPage(new CookbookPage());
 
         }
@@ -55,7 +43,10 @@ namespace LGRM.XamF
         {
             NavigationService.Configure("CookbookPage", typeof(CookbookPage));
             NavigationService.Configure("RecipePage", typeof(RecipePage));
-            NavigationService.Configure("GroceriesPage", typeof(GroceriesPage));
+            NavigationService.Configure("GroceriesPageL", typeof(GroceriesPageL));
+            NavigationService.Configure("GroceriesPageG", typeof(GroceriesPageG));
+            NavigationService.Configure("GroceriesPageH", typeof(GroceriesPageH));
+            NavigationService.Configure("GroceriesPageC", typeof(GroceriesPageC));
 
         }
 

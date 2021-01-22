@@ -3,6 +3,7 @@ using LGRM.XamF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LGRM.XamF.Services
@@ -17,16 +18,17 @@ namespace LGRM.XamF.Services
 
         public void GoBack() => MainPage.Navigation.PopAsync();
 
-        public void NavigateTo(string pageKey, object parameter = null)
+        public async Task NavigateTo(string pageKey, object parameter = null)
         {
             if (pages.TryGetValue(pageKey, out Type pageType))
             {
                 var page = (Page)Activator.CreateInstance(pageType);
                 page.SetNavigationArgs(parameter);
-
-                MainPage.Navigation.PushAsync(page);
                 
-                (page.BindingContext as BaseVM).Initialize(parameter);
+                               
+                
+                await (page.BindingContext as BaseVM).Initialize(parameter);
+                await MainPage.Navigation.PushAsync(page);
             }
             else
             {

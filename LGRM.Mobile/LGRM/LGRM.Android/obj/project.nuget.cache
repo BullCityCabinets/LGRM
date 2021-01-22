@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tensKeuWru5NowzM4jG8Gp1r5ZXN0/STupjYfmNPL8BAPxU/sPf3wb8ONvsaJZIO2n6KKSOOQuSdLuk4ksQxIg==",
+  "dgSpecHash": "j8ryNGUMxLTBz4gxJpcR5s97jfdKKQ8EXU4nA/BrVZuDWdOwzosKRAvZ8Ef0Gt5heFeXdZsz6XfdhTfCSVku1Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\ScumS\\source\\repos\\LGRM\\LGRM.Mobile\\LGRM\\LGRM.Android\\LGRM.Android.csproj",
   "expectedPackageFiles": [
@@ -61,7 +61,7 @@
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.androidx.viewpager\\1.0.0.6\\xamarin.androidx.viewpager.1.0.0.6.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.androidx.viewpager2\\1.0.0.7\\xamarin.androidx.viewpager2.1.0.0.7.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.essentials\\1.6.0\\xamarin.essentials.1.6.0.nupkg.sha512",
-    "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.forms\\5.0.0.1874\\xamarin.forms.5.0.0.1874.nupkg.sha512",
+    "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.forms\\5.0.0.1905\\xamarin.forms.5.0.0.1905.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.google.android.material\\1.1.0.5\\xamarin.google.android.material.1.1.0.5.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.google.guava.listenablefuture\\1.0.0.2\\xamarin.google.guava.listenablefuture.1.0.0.2.nupkg.sha512"
   ],

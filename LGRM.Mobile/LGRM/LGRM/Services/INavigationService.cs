@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LGRM.XamF.Services
@@ -9,6 +10,6 @@ namespace LGRM.XamF.Services
 
         void Configure(string key, Type pageType);
         void GoBack();
-        void NavigateTo(string pageKey, object parameter = null);
+        Task NavigateTo(string pageKey, object parameter = null);
     }
 }

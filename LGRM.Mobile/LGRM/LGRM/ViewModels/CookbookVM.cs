@@ -3,6 +3,7 @@ using LGRM.XamF.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -10,35 +11,32 @@ namespace LGRM.XamF.ViewModels
 {
     public class CookbookVM : BaseVM
     {
-        private INavigationService _navigationService;
+        INavigationService _navigationService;
+        public string FooterText => App.V.FooterText;
 
-        private List<Recipe> recipesDisplayed;
+
+        private List<Recipe> _recipesDisplayed;
         public List<Recipe> RecipesDisplayed
         {
-            get => recipesDisplayed;
+            get => _recipesDisplayed;
             set
             {
-                recipesDisplayed = value;
+                _recipesDisplayed = value;
                 OnPropertyChanged("RecipesDisplayed");
             }
         }
 
 
-        public int IngredientLabelHeight = 100; //Standard height
         public int EmptyHeight = 60;
+        public int HeightOfStandardRecipe = 100; //Standard height        
         private int _heightOfCollectionView { get; set; }
         public int HeightOfCollectionView
         {
             get
             {
-                if (RecipesDisplayed.Count > 0)
-                {
-                    return (_heightOfCollectionView * IngredientLabelHeight);
-                }
-                else
-                {
-                    return EmptyHeight;
-                }
+                return RecipesDisplayed.Count > 0
+                    ? (_heightOfCollectionView * HeightOfStandardRecipe)
+                    : EmptyHeight;
             }
             set
             {
@@ -49,14 +47,10 @@ namespace LGRM.XamF.ViewModels
 
 
 
-
-        public ICommand CreateNewRecipeCommand { get; }
-
         #region CTOR...
-        public CookbookVM(/*IPieDataService pieDataService,*/ INavigationService navigationService)
+        public CookbookVM(INavigationService navigationService)        
         {
             _navigationService = navigationService;
-            CreateNewRecipeCommand = new Command(OnCreateNewRecipeCommand);
 
             RecipesDisplayed = new List<Recipe>();
             var recipeMetas = App.MySQLite.GetAllRecipeMetas();
@@ -65,15 +59,13 @@ namespace LGRM.XamF.ViewModels
                 RecipesDisplayed.Add(item);
             }
 
-            //MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnNewRecipeSavedCommand);   // ...from Lists of Groceries
-
-
-
+            MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnUpdateSavedRecipesList);   // ...from Lists of Groceries            
+            CreateNewRecipeCommand = new Command(OnCreateNewRecipeCommand);
         }
-
         #endregion ...CTOR
 
 
+        public ICommand CreateNewRecipeCommand { get; }
         private void OnCreateNewRecipeCommand(object obj)
         {
             _navigationService.NavigateTo("RecipePage");
@@ -82,9 +74,45 @@ namespace LGRM.XamF.ViewModels
 
 
 
+        //public ICommand LoadSelectedRecipeCommand
+        //{
+        //    get
+        //    {
+        //        return new Command((e) =>
+        //        {
+
+        //            IsLoading = true;
+        //            var RecipeIdToLoad = (e as Recipe).Id;
+        //            _navigationService.NavigateTo("RecipePage", RecipeIdToLoad);
+        //            IsLoading = false;
+        //        });
+        //    }
+        //}
+
+        public async Task LoadSelectedRecipe(int recipeToLoadId)
+        {
+            //IsLoading = true;
+            await _navigationService.NavigateTo("RecipePage", recipeToLoadId);
+            //IsLoading = false;
+        }
+        //bool _isLoading { get; set; }
+        //public bool IsLoading
+        //{
+        //    get => _isLoading;
+        //    set
+        //    {
+        //        _isLoading = value;
+        //        OnPropertyChanged("IsLoading");
+        //    }
+        //}
 
 
 
+
+        private void OnUpdateSavedRecipesList(RecipeVM obj)
+        {
+            RecipesDisplayed = App.MySQLite.GetAllRecipeMetas(); //Update the list
+        }
 
 
 

@@ -34,12 +34,9 @@ namespace LGRM.XamF.Pages
             A2 = GetAppSkColor("NeutralBG2");
         }
 
-        public SkiaPainter(Kind kind) : base()
+        public SkiaPainter(Kind kind) 
         {
             this.kind = kind;
-
-            // helper method ...          
-
             switch (kind)
             {
                 case Kind.Lean:

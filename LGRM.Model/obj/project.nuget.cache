@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7znznDMCPa7bqBgz3Zz1EHdDhRgCmoGL6lYq23FAKxz7eV9x89/4fYu2vFs8duTIr2UsunagQOc00D7qI4qwig==",
+  "dgSpecHash": "ZXd3+F2DmIhWc/8LvXDvaisqSTV3xSdMBWdUSyD47dAzwafjIIbjuqu7oLpVc7U1IQQzIhOASoxW6BoKMbhTxw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ScumS\\source\\repos\\LGRM\\LGRM.Model\\LGRM.Model.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,7 @@
     "C:\\Users\\ScumS\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
     "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.essentials\\1.6.0\\xamarin.essentials.1.6.0.nupkg.sha512",
-    "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.forms\\5.0.0.1874\\xamarin.forms.5.0.0.1874.nupkg.sha512"
+    "C:\\Users\\ScumS\\.nuget\\packages\\xamarin.forms\\5.0.0.1905\\xamarin.forms.5.0.0.1905.nupkg.sha512"
   ],
   "logs": []
 }

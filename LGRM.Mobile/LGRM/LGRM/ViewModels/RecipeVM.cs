@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -14,6 +15,9 @@ namespace LGRM.XamF.ViewModels
 {
     public class RecipeVM : BaseVM
     {
+        INavigationService _navigationService;
+        public string FooterText => App.V.FooterText;
+
         private Recipe _recipe { get; set; }
         public Recipe Recipe
         {
@@ -33,68 +37,86 @@ namespace LGRM.XamF.ViewModels
             set
             {
                 _recipeServes = value;
-                UpdateOnServingsChanged();
+                UpdateRecommendeds();
                 OnPropertyChanged("RecipeServes");
             }
         }
 
-        #region ObservableCollection<Ingredient>'s for binding...
-        private ObservableCollection<Ingredient> leans { get; set; }
-        private ObservableCollection<Ingredient> greens { get; set; }
-        private ObservableCollection<Ingredient> healthyfats { get; set; }
-        private ObservableCollection<Ingredient> condiments { get; set; }
+        public ICommand VerifyClearRecipeDialogCommand { get; set; }
+        public ICommand SaveOrUpdateRecipeDialolgCommand { get; set; }
+
+        #region ObservableCollection<Ingredient>s for view's bindings...
+         ObservableCollection<Ingredient> _leans { get; set; }
+         ObservableCollection<Ingredient> _greens { get; set; }
+         ObservableCollection<Ingredient> _healthyfats { get; set; }
+         ObservableCollection<Ingredient> _condiments { get; set; }
         public ObservableCollection<Ingredient> Leans
         {
-            get => leans;
+            get => _leans;
             set
             {
-                leans = value;
+                _leans = value;
                 OnPropertyChanged("Leans");
             }
         } 
         public ObservableCollection<Ingredient> Greens
         {
-            get => greens;
+            get => _greens;
             set
             {
-                greens = value;
+                _greens = value;
                 OnPropertyChanged("Greens");
             }
 
         }
         public ObservableCollection<Ingredient> HealthyFats
         {
-            get => healthyfats;
+            get => _healthyfats;
             set
             {
-                healthyfats = value;
+                _healthyfats = value;
                 OnPropertyChanged("HealthyFats");
             }
 
         }
         public ObservableCollection<Ingredient> Condiments
         {
-            get => condiments;
+            get => _condiments;
             set
             {
-                condiments = value;
+                _condiments = value;
                 OnPropertyChanged("Condiments");
             }
 
         }
 
-        #endregion        
 
-        #region //~~ For adjusting collections' heights per items added...
+        #region For adjusting collections' heights per items added...
 
-        public int EmptyHeight = 60;
-        public int HeightOf1UOM = 100;  // 102
-        public int HeightOf2UOMs = 138; // 150
+        int emptyHeight = 60;
+        int heightOf1UOM = 100;  // 102
+        int heightOf2UOMs = 138; // 150
 
-        public int IngredientLabelHeight = 180; //Standard Ingredient label height ... 150 was too short
-        public int CollViewMargin = 12; //Standard Collection Margins
-
-        private int _heightL { get; set; }
+        public int CalcCollectionHeight(Kind kind = Kind.All)
+        {
+            var list = GetIngredients(kind);
+            if (list.Count > 0)
+            {
+                int height = 0;
+                foreach (var ing in list)
+                {
+                    var UOMsCount = (byte)ing.UOMs;
+                    height += UOMsCount > 2 ? heightOf2UOMs : heightOf1UOM;
+                }
+                return height;
+            }
+            else return emptyHeight;
+            
+        }
+        int _heightL { get; set; }
+        int _heightG { get; set; }
+        int _heightH { get; set; }
+        int _heightC { get; set; }
         public int HeightL
         {
             get => _heightL;
@@ -103,8 +125,7 @@ namespace LGRM.XamF.ViewModels
                 _heightL = CalcCollectionHeight(Kind.Lean);
                 OnPropertyChanged("HeightL");
             }
-        }
-        private int _heightG { get; set; }
+        }        
         public int HeightG
         {
             get => _heightG;
@@ -113,8 +134,7 @@ namespace LGRM.XamF.ViewModels
                 _heightG = CalcCollectionHeight(Kind.Green);
                 OnPropertyChanged("HeightG");
             }
-        }
-        private int _heightH { get; set; }
+        }         
         public int HeightH
         {
             get => _heightH;
@@ -123,8 +143,7 @@ namespace LGRM.XamF.ViewModels
                 _heightH = CalcCollectionHeight(Kind.HealthyFat);
                 OnPropertyChanged("HeightH");
             }
-        }
-        private int _heightC { get; set; }
+        }         
         public int HeightC
         {
             get => _heightC;
@@ -135,17 +154,24 @@ namespace LGRM.XamF.ViewModels
             }
         }
 
- 
 
         #endregion //~~ For adjusting View's collection heights per items added...
 
-        #region //~~ For Recipe summary of contents in header...       \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        #endregion
 
-
-        private float _totalLs { get; set; }
-        private float _totalGs { get; set; }
-        private float _totalHs { get; set; }
-        private float _totalCs { get; set; }
+        #region For Recipe's summaries displayed in header...       \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        float _totalLs { get; set; }
+        float _totalGs { get; set; }
+        float _totalHs { get; set; }
+        float _totalCs { get; set; }
+        float _recommendedLs { get; set; }
+        float _recommendedGs { get; set; }
+        float _recommendedHs { get; set; }
+        float _recommendedCs { get; set; }
+        float _bgStateL { get; set; }
+        float _bgStateG { get; set; }
+        float _bgStateH { get; set; }
+        float _bgStateC { get; set; }
 
         public float TotalLs
         {
@@ -193,11 +219,6 @@ namespace LGRM.XamF.ViewModels
 
         }
 
-        private float _recommendedLs { get; set; }
-        private float _recommendedGs { get; set; }
-        private float _recommendedHs { get; set; }
-        private float _recommendedCs { get; set; }
-
         public float RecommendedLs
         {
             get => _recommendedLs;
@@ -243,7 +264,6 @@ namespace LGRM.XamF.ViewModels
 
         }
 
-        private float _bgStateL { get; set; }
         public float BGStateL
         {
             get => _bgStateL;
@@ -253,7 +273,6 @@ namespace LGRM.XamF.ViewModels
                 OnPropertyChanged("BGStateL");
             }
         }
-        private float _bgStateG { get; set; }
         public float BGStateG
         {
             get => _bgStateG;
@@ -263,7 +282,6 @@ namespace LGRM.XamF.ViewModels
                 OnPropertyChanged("BGStateG");
             }
         }
-        private float _bgStateH { get; set; }
         public float BGStateH
         {
             get => _bgStateH;
@@ -273,7 +291,6 @@ namespace LGRM.XamF.ViewModels
                 OnPropertyChanged("BGStateH");
             }
         }
-        private float _bgStateC { get; set; }
         public float BGStateC
         {
             get => _bgStateC;
@@ -285,21 +302,14 @@ namespace LGRM.XamF.ViewModels
         }
 
         #endregion
-
-
-        //public ICommand NavigateToGroceriesCommand { get; }
-
-
-        private INavigationService _navigationService;
-        public ICommand VerifyClearRecipeCommand { get; set; }
-        public ICommand SaveRecipeCommand { get; set; }
-
+        
         #region CTOR...
-        public RecipeVM(/*IPieDataService pieDataService,*/ INavigationService navigationService)
+        public RecipeVM(INavigationService navigationService)            
         {
             _navigationService = navigationService;
-            //NavigateToGroceriesCommand = new Command<string>(OnNavigateToGroceriesCommand);
+            
             Recipe = new Recipe();
+            RecipeServes = Recipe.Serves;
             Leans       = new ObservableCollection<Ingredient>();
             Greens      = new ObservableCollection<Ingredient>();
             HealthyFats = new ObservableCollection<Ingredient>();
@@ -312,43 +322,35 @@ namespace LGRM.XamF.ViewModels
             Condiments.CollectionChanged += CollectionContentsChanged;
 
 
-            //MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnNewRecipeSavedCommand);   // ...from Lists of Groceries
             MessagingCenter.Subscribe< GroceriesVM, object >(this, "UpdateIngredients", UpdateRecipeIngredients);   // ...from Lists of Groceries
 
-            //VerifyClearRecipeCommand = new Command(OnVerifyClearRecipeCommand);
-            //SaveRecipeCommand = new Command(OnSaveRecipeCommand);
-
+            VerifyClearRecipeDialogCommand = new Command(OnVerifyClearRecipeDialog);
+            SaveOrUpdateRecipeDialolgCommand = new Command(OnSaveOrUpdateRecipeDialolg);
         }
 
-        public override void Initialize(object parameter)
+        
+        public override async Task Initialize(object parameter)
         {
+            ClearRecipeAndVM();
             if (parameter == null)
-            {
-                Recipe = new Recipe();
+            {                
+                this.Recipe = new Recipe();             
             }
             else
             {
-                Recipe = parameter as Recipe;
+                this.Recipe = App.MySQLite.GetRecipeById((int)parameter);                
+                foreach (var ing in Recipe.Ingredients){ AddIngredient(ing, localOnly: true); }
+                UpdatePortions(Kind.All);
             }
-
-            UpdateOnServingsChanged();
+            RecipeServes = Recipe.Serves;
+            UpdateRecommendeds();
         }
+        #endregion ...CTOR
 
-        public void FixForCollectionViewsEmptyViewToDisplay() // Without this, the collection views will not display "Empty View" on startup ...
-        {
-            AddIngredient(new Ingredient() { Kind = Kind.Lean, CatalogNumber = 666 });
-            AddIngredient(new Ingredient() { Kind = Kind.Green, CatalogNumber = 777 });
-            AddIngredient(new Ingredient() { Kind = Kind.HealthyFat, CatalogNumber = 888 });
-            AddIngredient(new Ingredient() { Kind = Kind.Condiment, CatalogNumber = 999 });
-            Leans.Clear();
-            Greens.Clear();
-            HealthyFats.Clear();
-            Condiments.Clear();
-
-        }
+        #region Methods...
 
 
-        private void UpdateRecipeIngredients( GroceriesVM sender, object update )
+        void UpdateRecipeIngredients( GroceriesVM sender, object update )
         {
             var updateContents = (object[])update;
             var ingredientChanged = (Ingredient)updateContents[0];
@@ -358,40 +360,89 @@ namespace LGRM.XamF.ViewModels
             {
                 AddIngredient(ingredientChanged);
             }
-            else
+            else 
             {
                 RemoveIngredient(ingredientChanged);
             }
-        }
+            UpdatePortions(ingredientChanged.Kind);
 
-        public ICommand NavigateToGroceriesCommand
+        } // Called from GroceriesVM
+
+        void AddIngredient(Ingredient ingredient, bool localOnly = true)
         {
-            get
+            switch (ingredient.Kind)
             {
-                return new Command<Kind>((k) => OnNavigateToGroceriesCommand(k));
+                case Kind.Lean:
+                    bool contains = Leans.Any(ing => ing.CatalogNumber == ingredient.CatalogNumber);
+                    if (!contains)
+                    {
+                        Leans.Add(ingredient);
+                        HeightL += 1;
+                    }
+                    break;
+                case Kind.Green:
+                    contains = Leans.Any(ing => ing.CatalogNumber == ingredient.CatalogNumber);
+                    if (!contains)
+                    {
+                        Greens.Add(ingredient);
+                        HeightG += 1;
+                    }
+                    break;
+                case Kind.HealthyFat:
+                    contains = Leans.Any(ing => ing.CatalogNumber == ingredient.CatalogNumber);
+                    if (!contains)
+                    {
+                        HealthyFats.Add(ingredient);
+                        HeightH += 1;
+                    }
+                    break;
+                case Kind.Condiment:
+                    contains = Leans.Any(ing => ing.CatalogNumber == ingredient.CatalogNumber);
+                    if (!contains)
+                    {
+                        Condiments.Add(ingredient);
+                        HeightC += 1;
+                        OnPropertyChanged("TotalCs");
+                    }
+                    break;
+                default: throw new Exception(message: "RecipeVM.AddIngredient: No Kind found!");
+
+            }
+            if (!localOnly)
+            {
+                Recipe.Ingredients.Add(ingredient);
+            }
+        }
+        void RemoveIngredient(Ingredient ingredient, bool localOnly = true)
+        {
+            switch (ingredient.Kind)
+            {
+                case Kind.Lean:
+                    Leans.Remove(Leans.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
+                    HeightL -= 1;
+                    break;
+                case Kind.Green:
+                    Greens.Remove(Greens.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
+                    HeightG -= 1;
+                    break;
+                case Kind.HealthyFat:
+                    HealthyFats.Remove(HealthyFats.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
+                    HeightH -= 1;
+                    break;
+                case Kind.Condiment:
+                    Condiments.Remove(Condiments.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
+                    HeightC -= 1;
+                    break;
+                default: throw new Exception(message: "RecipeVM.RemoveIngredient: No Kind found!");
+
+            }
+            if (!localOnly)
+            {
+                Recipe.Ingredients.Remove(ingredient);
             }
         }
 
-        public void OnNavigateToGroceriesCommand(Kind k)
-        {
-            _navigationService.NavigateTo("GroceriesPage", k);
-        }
-
-
-
-
-        #endregion ...CTOR
-
-
-
-
-
-
-        #region Methods...
-
-
-
-        public List<Ingredient> GetIngredients(Kind kind = Kind.All)
+        List<Ingredient> GetIngredients(Kind kind = Kind.All)
         {
             var Ings = new List<Ingredient>();
             switch (kind)
@@ -417,76 +468,7 @@ namespace LGRM.XamF.ViewModels
             }
         }
 
-        void AddIngredient(Ingredient ingredient)
-        {
-            Recipe.Ingredients.Add(ingredient);
-            switch (ingredient.Kind)
-            {
-                case Kind.Lean:
-                    Leans.Add(ingredient);
-                    HeightL += 1;
-                    break;
-                case Kind.Green:
-                    Greens.Add(ingredient);
-                    HeightG += 1;
-                    break;
-                case Kind.HealthyFat:
-                    HealthyFats.Add(ingredient);
-                    HeightH += 1;
-                    break;
-                case Kind.Condiment:
-                    Condiments.Add(ingredient);
-                    HeightC += 1;
-                    break;
-                default: throw new Exception(message: "RecipeVM.AddIngredient: No Kind found!");
-                    
-            }
-        }
-        void RemoveIngredient(Ingredient ingredient)
-        {
-            Recipe.Ingredients.Remove(ingredient);
-            switch (ingredient.Kind)
-            {
-                case Kind.Lean:
-                    Leans.Remove(Leans.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
-                    HeightL -= 1;
-                    break;
-                case Kind.Green:
-                    Greens.Remove(Greens.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
-                    HeightG -= 1;
-                    break;
-                case Kind.HealthyFat:
-                    HealthyFats.Remove(HealthyFats.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
-                    HeightH -= 1;
-                    break;
-                case Kind.Condiment:
-                    Condiments.Remove(Condiments.FirstOrDefault(ing => ing.CatalogNumber == ingredient.CatalogNumber));
-                    HeightC -= 1;
-                    break;
-                default: throw new Exception(message: "RecipeVM.RemoveIngredient: No Kind found!");
-                    
-            }
-        }
-
-        public void UpdateOnServingsChanged()
-        {
-            if (RecipeServes > 0)
-            {
-                RecommendedLs = 1 * RecipeServes;
-                RecommendedGs = 3 * RecipeServes;
-                RecommendedHs = SetRecommendedHs();
-                RecommendedCs = 3 * RecipeServes;
-            }
-            else
-            {
-                RecommendedLs = 1;
-                RecommendedGs = 3;
-                RecommendedHs = SetRecommendedHs();
-                RecommendedCs = 3;
-            }
-        }
-
-        public float GetPortions(Kind kind = Kind.All) // ... counts bound in header
+        float GetPortions(Kind kind = Kind.All) // ... counts bound in header
         {
             var list = new List<Ingredient>(GetIngredients(kind));
             float portion = 0;
@@ -497,7 +479,7 @@ namespace LGRM.XamF.ViewModels
             return portion;
         }
 
-        public void UpdatePortions(Kind kind = Kind.All)
+        void UpdatePortions(Kind kind = Kind.All)
         {
             switch (kind)
             {
@@ -536,7 +518,25 @@ namespace LGRM.XamF.ViewModels
             }
         }
 
-        public float SetRecommendedHs()
+        #region to update summary when ingredient lists change...
+        void UpdateRecommendeds()
+        {
+            if (RecipeServes > 0)
+            {
+                RecommendedLs = 1 * RecipeServes;
+                RecommendedGs = 3 * RecipeServes;
+                RecommendedHs = SetRecommendedHs();
+                RecommendedCs = 3 * RecipeServes;
+            }
+            else
+            {
+                RecommendedLs = 1;
+                RecommendedGs = 3;
+                RecommendedHs = SetRecommendedHs();
+                RecommendedCs = 3;
+            }
+        }
+        float SetRecommendedHs()
         {
             {
                 float x = 0;
@@ -556,8 +556,7 @@ namespace LGRM.XamF.ViewModels
                 else return 0; // !Leans? ... there would be no Leans, anyhow.
             }
         }
-
-        private float SetSummaryBackgroundColor(Kind kind) //ConverterToEvaluateState sets actual colors
+        float SetSummaryBackgroundColor(Kind kind) //ConverterToEvaluateState sets actual colors
         {
             var x = kind switch
             {
@@ -569,29 +568,8 @@ namespace LGRM.XamF.ViewModels
             };
             return x[0] - x[1];  //ConverterToEvaluateState uses this to determine background color
         }
-
-        public int CalcCollectionHeight(Kind kind = Kind.All)
-        {
-            var list = GetIngredients(kind);
-            if (list.Count > 0)
-            {
-                int height = 0;
-                foreach (var ing in list)
-                {
-                    var UOMsCount = (byte)ing.UOMs;
-                    height += UOMsCount > 2 ? HeightOf2UOMs : HeightOf1UOM;
-                }
-                return height;
-            }
-            else
-            {
-                return EmptyHeight;
-            }
-        }
-
-
-        #region to update summary when ingredient lists change...
-        public void CollectionContentsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        
+        void CollectionContentsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
@@ -609,12 +587,170 @@ namespace LGRM.XamF.ViewModels
             }
         }   //Updates from Ingredient items on Recipe View
 
-        public void IngredientPropertyChanged(object sender, PropertyChangedEventArgs e)
+        void IngredientPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdatePortions();
         }   // called when the property of an object inside the collection changes
 
         #endregion ... to update summary when ingredient lists change
+
+        void FixForCollectionViewsEmptyViewToDisplay() // Without this, the collection views will not display "Empty View" on startup ...
+        {
+            AddIngredient(new Ingredient() { Kind = Kind.Lean, Name1 = "TriggerEmptyView1", CatalogNumber = 666 }); //Something bugs out if I try to use the same object in all lists.
+            AddIngredient(new Ingredient() { Kind = Kind.Green, Name1 = "TriggerEmptyView2", CatalogNumber = 777 });
+            AddIngredient(new Ingredient() { Kind = Kind.HealthyFat, Name1 = "TriggerEmptyView3", CatalogNumber = 888 });
+            AddIngredient(new Ingredient() { Kind = Kind.Condiment, Name1 = "TriggerEmptyView4", CatalogNumber = 999 });
+
+            Leans.Clear();
+            Greens.Clear();
+            HealthyFats.Clear();
+            Condiments.Clear();
+
+            TotalLs = TotalGs = TotalHs = TotalCs = HeightL = HeightG = HeightH = HeightC = 0;
+        }
+
+        #region Clear Recipe ...
+        void ClearRecipeAndVM() //Invoked from "Create New Recipe" or "Clear Recipe Command"
+        {
+            this.Recipe = new Recipe();
+            RecipeServes = Recipe.Serves;
+            //Leans = new ObservableCollection<Ingredient>();
+            //Greens = new ObservableCollection<Ingredient>();
+            //HealthyFats = new ObservableCollection<Ingredient>();
+            //Condiments = new ObservableCollection<Ingredient>();
+
+            Leans.Clear(); 
+            Greens.Clear();
+            HealthyFats.Clear();
+            Condiments.Clear();
+
+            FixForCollectionViewsEmptyViewToDisplay();
+            UpdatePortions();
+        }
+        async void OnVerifyClearRecipeDialog()
+        {
+            var answer = await App.Current.MainPage.DisplayAlert("Clear All", "Start a new recipe?", "Yes", "No");
+            if (answer == true) // "Yes"
+            {
+                ClearRecipeAndVM();
+            }
+        }
+        #endregion ... clear recipe
+
+        #region Save/ Update Recipe ...
+
+        private async void OnSaveOrUpdateRecipeDialolg(object obj)
+        {
+            bool hasIngredients = GetIngredients(Kind.All).Count > 0;
+            if (!hasIngredients)
+            {
+                // "RecipeIsEmptyDialog"
+                var answer = await App.Current.MainPage.DisplayAlert("Your Recipe is Empty", "Add ingriedients to create a new recipe...", "See Tutorial", "Continue");
+                if (answer == true) // "See Tutorial"
+                {
+                    await App.Current.MainPage.DisplayAlert("Tutorial", "Coming soon...", "Continue");
+                }
+            }
+            
+            if(Recipe.Name != Recipe.defaultName)
+            {
+                if(await App.Current.MainPage.DisplayAlert("Save Recipe", "Update or Save as New? ", "Update Recipe", "Save as New"))
+                {
+                    UpdateRecipe();
+                }
+                else // "Save As New"
+                {
+                    SaveAsNewRecipeDialog();
+                }
+            }
+            else // "Save As New"
+            {
+                SaveAsNewRecipeDialog();
+                
+            }
+
+        }
+
+        private async void SaveAsNewRecipeDialog()
+        {
+            Recipe.Id = 0; // Id# 0 means the Db will save as new... it will assign a new number.
+            string newName;
+            //do
+            //{
+            //    newName = await App.Current.MainPage.DisplayPromptAsync(
+            //        "Save Recipe", "Name your new recipe...", accept: "Save", cancel: "Cancel", placeholder: "New recipe name...", initialValue: null, maxLength: 25, keyboard: Keyboard.Plain);
+            //}
+            //while (string.IsNullOrWhiteSpace(newName));
+               
+            newName = await App.Current.MainPage.DisplayPromptAsync(
+            "Save Recipe", "Name your new recipe...", accept: "Save", cancel: "Cancel", placeholder: "New recipe name...", initialValue: null, maxLength: 25, keyboard: Keyboard.Plain);
+            if (string.IsNullOrWhiteSpace(newName))
+            {                
+                await App.Current.MainPage.DisplayAlert("Alert", "Sorry, but recipes cannot be saved without a name", "Alrighty");
+            }
+            Recipe.Name = newName.Trim();
+            SaveRecipe();
+        }
+
+        public async void SaveRecipe()
+        {            
+            Recipe.Serves = RecipeServes;
+            Recipe.Ingredients.Clear();
+            foreach (var ingredient in GetIngredients(Kind.All))
+            {
+                Recipe.Ingredients.Add(ingredient);
+            }
+            await App.MySQLite.SaveRecipeAsync(Recipe);
+            MessagingCenter.Send<RecipeVM>(this, "UpdateSavedRecipesList");
+        }
+
+        public async void UpdateRecipe()
+        {
+            Recipe.Serves = RecipeServes;
+            Recipe.Ingredients.Clear();
+            foreach (var ingredient in GetIngredients(Kind.All))
+            {
+                Recipe.Ingredients.Add(ingredient);
+            }
+            await App.MySQLite.UpdateRecipeAsync(Recipe);
+            MessagingCenter.Send<RecipeVM>(this, "UpdateSavedRecipesList");
+        }
+
+        #endregion ... save/ update recipe
+
+
+        #region Navigation ...
+        public ICommand NavigateToGroceriesCommand
+        {
+            get
+            {
+                return new Command<Kind>((k) => OnNavigateToGroceries(k));
+            }
+        }
+        void OnNavigateToGroceries(Kind k)
+        {           
+            var catalogNumbers = new List<int>();
+            foreach (var ingredient in GetIngredients(k))
+            {
+                catalogNumbers.Add(ingredient.CatalogNumber);
+            }
+            object[] parameteres = new object[] { k, catalogNumbers };
+            
+            var page = k switch
+            {
+                Kind.Lean => "GroceriesPageL",
+                Kind.Green => "GroceriesPageG",
+                Kind.HealthyFat => "GroceriesPageH",
+                Kind.Condiment => "GroceriesPageC",
+                _ => "GroceriesPage"
+            };
+
+            _navigationService.NavigateTo(page, parameteres);
+        }
+
+        
+        #endregion ... navigation 
+
         #endregion ... methods
 
 

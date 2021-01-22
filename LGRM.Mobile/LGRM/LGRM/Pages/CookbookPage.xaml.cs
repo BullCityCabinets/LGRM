@@ -1,14 +1,9 @@
-﻿using LGRM.XamF.ViewModels;
-using LGRM.XamF.ViewModels.Framework;
-using SkiaSharp.Views.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SkiaSharp.Views.Forms;
+using LGRM.XamF.ViewModels.Framework;
+using LGRM.XamF.ViewModels;
+using LGRM.Model;
 
 namespace LGRM.XamF.Pages
 {
@@ -16,19 +11,31 @@ namespace LGRM.XamF.Pages
     public partial class CookbookPage : ContentPage
     {
         SkiaPainter skiaPainter;
+        
 
         public CookbookPage()
         {            
-            InitializeComponent();
-         
+            InitializeComponent();            
             this.BindingContext = ViewModelLocator.CookbookVM;
+            skiaPainter = new SkiaPainter(); //Do not move this up!  It can break App.xaml StaticResoures.
 
-            skiaPainter = new SkiaPainter(); //Do not move this above if this is still the launch page!  It breaks App.xaml StaticResources
+            
         }
 
         void canvas_Open2Title(object sender, SKPaintSurfaceEventArgs args) => skiaPainter.OnCanvasPaint_Open2Title(sender, args);
-        void canvas_Open2Sub(object sender, SKPaintSurfaceEventArgs args) => skiaPainter.OnCanvasPaint_Title2Sub(sender, args);
-        void canvas_Sub2Open(object sender, SKPaintSurfaceEventArgs args) => skiaPainter.OnCanvasPaint_Sub2Open(sender, args);
+        void canvas_Open2Sub(object sender, SKPaintSurfaceEventArgs args)   => skiaPainter.OnCanvasPaint_Title2Sub( sender, args);
+        void canvas_Sub2Open(object sender, SKPaintSurfaceEventArgs args)   => skiaPainter.OnCanvasPaint_Sub2Open(  sender, args);
 
+        private async void LoadButton_Clicked(object sender, System.EventArgs e)
+        {
+            indicator.IsRunning = true;
+            indicator.IsVisible   = true;
+            int recipeToLoadId = ((sender as Button).CommandParameter as Recipe).Id;
+            await (BindingContext as CookbookVM).LoadSelectedRecipe(recipeToLoadId);
+            indicator.IsVisible = false;
+            indicator.IsRunning = false;
+
+            //Old code: Command = "{Binding BindingContext.LoadSelectedRecipeCommand, Source={x:Reference Name=MyCookbookPage}}" CommandParameter = "{Binding .}"
+        }
     }
 }

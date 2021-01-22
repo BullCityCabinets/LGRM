@@ -7,3 +7,12 @@ C:\Users\ScumS\source\repos\LGRM\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.
 C:\Users\ScumS\source\repos\LGRM\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.csproj.CoreCompileInputs.cache
 C:\Users\ScumS\source\repos\LGRM\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.dll
 C:\Users\ScumS\source\repos\LGRM\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.pdb
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\bin\Debug\netstandard2.1\LGRM.Model.deps.json
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\bin\Debug\netstandard2.1\LGRM.Model.dll
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\bin\Debug\netstandard2.1\LGRM.Model.pdb
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.csprojAssemblyReference.cache
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.AssemblyInfoInputs.cache
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.AssemblyInfo.cs
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.csproj.CoreCompileInputs.cache
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.dll
+C:\Users\ScumS\source\repos\LGRM 210119x crashes as release\LGRM.Model\obj\Debug\netstandard2.1\LGRM.Model.pdb

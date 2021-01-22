@@ -6,35 +6,26 @@
                           >
     
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView MinimumHeightRequest="1" BackgroundColor="{StaticResource DefaultEmptySpaceBG}" >
             
             <StackLayout VerticalOptions="FillAndExpand" >
                 <StackLayout x:Name="NameAndControls" Style="{StaticResource H1HorizontalStack}">
                     <skia:SKCanvasView x:Name="canvas1" PaintSurface="canvas_Open2Title" />
-                    <Button Text = "{Binding Recipe.Name}" Command="{Binding VerifySaveCommand}" BackgroundColor="{StaticResource NeutralBG1}" Style="{StaticResource H1Button}" />
+                    <Button Text = "{Binding Recipe.Name}" Command="{Binding SaveOrUpdateRecipeDialolgCommand}" BackgroundColor="{StaticResource NeutralBG1}" Style="{StaticResource H1Button}" />
                     <skia:SKCanvasView x:Name="canvas2" PaintSurface="canvas_Open2Sub" />
-                    <Button ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearCommand}" BackgroundColor="{StaticResource NeutralBG2}" Style="{StaticResource H2Button}" />
+                    <Button ImageSource="baseline_clear_white_18dp.png" Command="{Binding VerifyClearRecipeDialogCommand}" BackgroundColor="{StaticResource NeutralBG2}" Style="{StaticResource H2Button}" />
                     <skia:SKCanvasView x:Name="canvas3" PaintSurface="canvas_Sub2Open" />
                 </StackLayout>
-
-
                 
-                
-                
-                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG1}" >                    
+                <StackLayout x:Name="Summaries" BackgroundColor="{StaticResource NeutralBG1}" Padding="0,8" >                    
                         <!-- cs -->                    
                 </StackLayout>
 
-                <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand"/> 
+                <StackLayout x:Name="IngredientLists" VerticalOptions="FillAndExpand" />
+                <!--MinimumHeightRequest="{Binding HeightOA}"-->
                 <!-- cs -->
-                
-                
-                
 
-                
-
-
-            </StackLayout>
+           </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -6,5 +6,6 @@ namespace LGRM.XamF.ViewModels
 {
     public class LoginVM : BaseVM
     {
+        //public string FooterText => App.V.FooterText;
     }
 }

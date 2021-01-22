@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace LGRM.XamF.ViewModels
 {
@@ -14,7 +15,8 @@ namespace LGRM.XamF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual void Initialize(object parameter)   //see NavigationService.NavigatTo()... this is used to pass "Item Selected" info to the next viewmodel called.
+        //public virtual void Initialize(object parameter)   //see NavigationService.NavigatTo()... this is used to pass "Item Selected" info to the next viewmodel called.
+        public virtual async Task Initialize(object parameter)   //see NavigationService.NavigatTo()... this is used to pass "Item Selected" info to the next viewmodel called.
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using LGRM.Model;
+using LGRM.XamF.ViewModels;
 using LGRM.XamF.ViewModels.Framework;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
@@ -24,6 +25,7 @@ namespace LGRM.XamF.Pages
             InitializeComponent();
             BindingContext = ViewModelLocator.RecipeVM;
             
+
             Summaries.Children.Add( new SummaryBy(Kind.Lean) );
             Summaries.Children.Add( new SummaryBy(Kind.Green) );
             Summaries.Children.Add( new SummaryBy(Kind.HealthyFat) );
@@ -47,6 +49,9 @@ namespace LGRM.XamF.Pages
             IngredientLists.Children.Add( new IngredientsCollection(Kind.HealthyFat) );
             IngredientLists.Children.Add( new IngredientsCollection(Kind.Condiment) );
 
+            var footerLabel = new Label() { HorizontalOptions = LayoutOptions.Center, VerticalTextAlignment = TextAlignment.Start, MinimumHeightRequest = 1000 };
+            footerLabel.SetBinding(Label.TextProperty, "FooterText");
+            IngredientLists.Children.Add(footerLabel);
 
 
         }

@@ -33,23 +33,17 @@ namespace LGRM.XamF.Pages
             Application.Current.Resources.TryGetValue("String2HexColor", out var resourceValue);
             var fromHex = (IValueConverter)resourceValue;
             var frameBorderColor = Color.Gray;
-
-            //////////////Application.Current.Resources.TryGetValue("GeneralBG", out resourceValue);
-            //////////////var colorGeneralBG = (Color)resourceValue;
             Application.Current.Resources.TryGetValue("DefaultTextColor", out resourceValue);
             var defaultTextColor = (Color)resourceValue;
-            //Application.Current.Resources.TryGetValue("DefaultEntryBG", out resourceValue);
-            //var defaultEntryBGColor = (Color)resourceValue;
-
-
 
             #endregion Colors... ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region Font Sizes...
             Application.Current.Resources.TryGetValue("FontL", out resourceValue);
             var fontL = (Double)resourceValue;
-            //var fontL = 20; //Device.GetNamedSize(NamedSize.Large, typeof(Label));
-            var fontM = 14; //Device.GetNamedSize(NamedSize.Medium, typeof(Label));
-            var fontB = 14; // Device.GetNamedSize(NamedSize.Body, typeof(Label));
+            Application.Current.Resources.TryGetValue("FontM", out resourceValue);
+            var fontM = (Double)resourceValue;
+            Application.Current.Resources.TryGetValue("FontB", out resourceValue);
+            var fontB = (Double)resourceValue;
             #endregion Font Sizes... ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region Kind Switch...
             switch (kind)
@@ -135,30 +129,21 @@ namespace LGRM.XamF.Pages
             var canvasR = new SKCanvasView() { HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30 };
             canvasR.PaintSurface += skiaPainter.OnCanvasPaint_Title2Sub;
 
+
+
+
             #region // Navigation...            
             var headerButtonAddGroceries = new Button() { 
                 ImageSource = "baseline_add_circle_white_24x24.png", 
                 WidthRequest = 40, BackgroundColor = colorA2, Margin = new Thickness(0, 8, 0, 0), Padding = 3, CornerRadius = 0         
             };
-
             headerButtonAddGroceries.SetBinding(Button.CommandProperty, "NavigateToGroceriesCommand");
             headerButtonAddGroceries.CommandParameter = kind;
 
-            //headerButtonAddGroceries.Command = new Command(async () =>
-            //{
-            //    App.PageIsLoading = true;
-            //    indicator.IsRunning = true;
-            //    //(BindingContext as RecipeVM).SetGroceries(kind);
-            //    //(pageToNavigateTo.BindingContext as GroceriesVM).SetPreselections(); // to fix Ios not pre-selecting
-            //    await Application.Current.MainPage.Navigation.PushAsync(pageToNavigateTo);
-
-
-
-            //    indicator.IsRunning = false;
-            //    App.PageIsLoading = false;
-
-            //});
             #endregion // ... navigation
+
+
+
 
             var canvasR2 = new SKCanvasView() { HorizontalOptions = LayoutOptions.Fill, WidthRequest = 30 };
             canvasR2.PaintSurface += skiaPainter.OnCanvasPaint_Sub2Open;
@@ -343,13 +328,7 @@ namespace LGRM.XamF.Pages
 
             });
             #endregion//      END DATATEMPLATE        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            #region //     FOOTER      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            //var footer = new StackLayout { Orientation = StackOrientation.Horizontal, Spacing = 0, HorizontalOptions = LayoutOptions.Center }; //, BackgroundColor = colorGeneralBG, HeightRequest = 40, Margin = 0 };
-            //footer.Children.Add(new IngredientListSummaryLine(kind, isInHeader: false) {BackgroundColor = colorA1, Padding= new Thickness(0,0,0,8)});
 
-
-
-            #endregion  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             #region //     COMPOSE ELEMENTS      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
             header.Children.Add(canvasL);
             header.Children.Add(headerLabel);
