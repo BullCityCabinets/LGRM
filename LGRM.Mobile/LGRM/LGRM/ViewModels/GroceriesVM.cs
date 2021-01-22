@@ -260,7 +260,7 @@ namespace LGRM.XamF.ViewModels
         List<int> priorCatNums { get; set; }
         List<int> currentCatNums { get; set; }
         private void OnSelectedGroceriesChanged()
-        {
+        {            
             int CatalogNumberChanged;
             bool toBeAdded;
             Ingredient ingredientChanged;
@@ -274,11 +274,13 @@ namespace LGRM.XamF.ViewModels
             if ( priorCatNums.Count < currentCatNums.Count ) // add item ...
             {
                 CatalogNumberChanged = currentCatNums.Except(priorCatNums).ToList()[0]; // ... should only be 1 item in list
+                (DisplayedGroceries.FirstOrDefault(g => g.CatalogNumber == CatalogNumberChanged)).IsSelected = true;
                 toBeAdded = true;                
             }
             else // remove item ...
             {
                 CatalogNumberChanged = priorCatNums.Except(currentCatNums).ToList()[0];
+                (DisplayedGroceries.FirstOrDefault(g => g.CatalogNumber == CatalogNumberChanged)).IsSelected = false;
                 toBeAdded = false;
             }
             SetShowSelectedItemsButton();

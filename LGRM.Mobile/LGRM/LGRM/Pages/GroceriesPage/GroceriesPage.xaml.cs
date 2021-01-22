@@ -9,12 +9,12 @@ namespace LGRM.XamF.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GroceriesPage : ContentPage
     {
-        internal Kind kind;
-        internal SkiaPainter skiaPainter;
+        protected Kind kind;
+        protected SkiaPainter skiaPainter;
 
-        internal Color colorA1;
-        //internal Color colorA2;
-        //internal Color colorB1;
+        protected Color colorA1;
+        //protected Color colorA2;
+        //protected Color colorB1;
 
 
         public GroceriesPage()

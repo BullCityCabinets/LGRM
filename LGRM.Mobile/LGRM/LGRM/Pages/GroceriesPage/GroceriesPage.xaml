@@ -31,8 +31,7 @@
                             SelectionMode="Multiple"
                             ItemsSource="{Binding DisplayedGroceries}"
                             SelectionChangedCommand="{Binding SelectedGroceriesChanged}"                            
-                            SelectedItems="{Binding SelectedItems}"
-                            
+                            SelectedItems="{Binding SelectedItems}"                            
                             >
 
                 <CollectionView.ItemsLayout>
@@ -47,7 +46,9 @@
                     <DataTemplate>
                         <Grid
                             RowSpacing="0"
-                            Margin="8">
+                            Margin="8"
+                            BackgroundColor="{Binding IsSelected, Converter={StaticResource Bool4Color}}" 
+                            >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="78" />
                                 <ColumnDefinition Width="*" />

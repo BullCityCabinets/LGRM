@@ -15,11 +15,11 @@ namespace LGRM.XamF.Converters
 
             if (x == true)
             {
-                color = Color.HotPink;
+                color = Color.LightSkyBlue;
             }
             else
             {
-                color = Color.Cornsilk;
+                color = Color.WhiteSmoke;
             }
 
             return color;

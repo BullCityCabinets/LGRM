@@ -20,51 +20,19 @@ namespace LGRM.Model
 
         //Todo: I don't believe I need private feilds for all these "descriptive" members that can't be changed by typical users...
         public string Name1 { get; set; }
-        private string name2 { get; set; }
+
+        string _name2 { get; set; }
         public string Name2
         {
-            get => name2;
-            set
-            {
-                //if (name2 == "")
-                //{
-                //    name2 = null; //This made linq abort search queries
-                //}
-                //else
-                //{
-                if (value == null)
-                {
-                    name2 = "";
-                }
-                else name2 = value;
-                //RaisePropertyChanged(nameof(Name2));
-                //}
-
-            }
+            get => _name2;
+            set => _name2 = value != null ? value : "";                    
         }
 
-        private string desc1 { get; set; }
+        string _desc1 { get; set; }
         public string Desc1
         {
-            get => desc1;
-            set
-            {
-                //if (desc1 == "")
-                //{
-                //    desc1 = null;
-                //}
-                //else
-                //{
-                //    desc1 = value;
-                //    //RaisePropertyChanged(nameof(Desc1));
-                //}
-                if (value == null)
-                {
-                    desc1 = "";
-                }
-                else desc1 = value;
-
-            }
+            get => _desc1;
+            set => _desc1 = value != null ? value : "";            
         }
 
         public float BaseWeight { get; set; }
@@ -80,10 +48,6 @@ namespace LGRM.Model
             get
             {
                 var asInt = 0;
-             //   _ = BaseWeight > 0 ? asInt + 1 : asInt + 0;
-             //   _ = BaseVolume > 0 ? asInt + 2 : asInt + 0;
-             //   _ = BaseCount  > 0 ? asInt + 4 : asInt + 0;                
-             
                 if(BaseWeight > 0)
                 {
                     asInt += 1;
@@ -168,7 +132,6 @@ namespace LGRM.Model
                     myString += (Desc1.Trim() + " ");
                 }
                 return myString;
-
             }
 
         }
@@ -176,17 +139,15 @@ namespace LGRM.Model
 
 
         
-        private bool isSelected { get; set; }
+        private bool _isSelected { get; set; }
         [Ignore] [JsonIgnore]
         public bool IsSelected
         {
-            get => isSelected;
+            get => _isSelected;
             set
             {
-                isSelected = value;
+                _isSelected = value;
                 RaisePropertyChanged(nameof(IsSelected));
-                
-
             }
         }
 

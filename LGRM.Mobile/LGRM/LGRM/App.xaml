@@ -6,7 +6,7 @@
     <Application.Resources>
 
         <converter:ConvertBool4Color x:Key="Bool4Color"/>
-        <converter:ConvertFloat2Bool4Color x:Key="Float2Bool4Color"/>
+        <!--<converter:ConvertFloat2Color x:Key="Float2Color"/>-->
         <converter:ConvertString2HexColor x:Key="String2HexColor"/>
         <converter:ConvertStringExists2Visibility x:Key="StringExists2Visibility"/>
 
