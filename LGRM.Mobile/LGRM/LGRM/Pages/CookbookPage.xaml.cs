@@ -37,5 +37,16 @@ namespace LGRM.XamF.Pages
 
             //Old code: Command = "{Binding BindingContext.LoadSelectedRecipeCommand, Source={x:Reference Name=MyCookbookPage}}" CommandParameter = "{Binding .}"
         }
+        private async void DeleteButton_Clicked(object sender, System.EventArgs e)
+        {
+            indicator.IsRunning = true;
+            indicator.IsVisible = true;
+            int recipeToDeleteId = ((sender as Button).CommandParameter as Recipe).Id;
+            await (BindingContext as CookbookVM).VerifyDeleteSelectedRecipeDialog(recipeToDeleteId);
+            indicator.IsVisible = false;
+            indicator.IsRunning = false;
+
+            //Old code: Command = "{Binding BindingContext.LoadSelectedRecipeCommand, Source={x:Reference Name=MyCookbookPage}}" CommandParameter = "{Binding .}"
+        }
     }
 }

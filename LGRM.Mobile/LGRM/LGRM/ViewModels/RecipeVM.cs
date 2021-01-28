@@ -43,7 +43,7 @@ namespace LGRM.XamF.ViewModels
         }
 
         public ICommand VerifyClearRecipeDialogCommand { get; set; }
-        public ICommand SaveOrUpdateRecipeDialolgCommand { get; set; }
+        public ICommand SaveOrUpdateRecipeDialogCommand { get; set; }
 
         #region ObservableCollection<Ingredient>s for view's bindings...
          ObservableCollection<Ingredient> _leans { get; set; }
@@ -325,7 +325,7 @@ namespace LGRM.XamF.ViewModels
             MessagingCenter.Subscribe< GroceriesVM, object >(this, "UpdateIngredients", UpdateRecipeIngredients);   // ...from Lists of Groceries
 
             VerifyClearRecipeDialogCommand = new Command(OnVerifyClearRecipeDialog);
-            SaveOrUpdateRecipeDialolgCommand = new Command(OnSaveOrUpdateRecipeDialolg);
+            SaveOrUpdateRecipeDialogCommand = new Command(OnSaveOrUpdateRecipeDialolg);
         }
 
         
@@ -334,7 +334,7 @@ namespace LGRM.XamF.ViewModels
             ClearRecipeAndVM();
             if (parameter == null)
             {                
-                this.Recipe = new Recipe();             
+                this.Recipe = new Recipe();
             }
             else
             {
@@ -614,10 +614,6 @@ namespace LGRM.XamF.ViewModels
         {
             this.Recipe = new Recipe();
             RecipeServes = Recipe.Serves;
-            //Leans = new ObservableCollection<Ingredient>();
-            //Greens = new ObservableCollection<Ingredient>();
-            //HealthyFats = new ObservableCollection<Ingredient>();
-            //Condiments = new ObservableCollection<Ingredient>();
 
             Leans.Clear(); 
             Greens.Clear();
@@ -675,12 +671,6 @@ namespace LGRM.XamF.ViewModels
         {
             Recipe.Id = 0; // Id# 0 means the Db will save as new... it will assign a new number.
             string newName;
-            //do
-            //{
-            //    newName = await App.Current.MainPage.DisplayPromptAsync(
-            //        "Save Recipe", "Name your new recipe...", accept: "Save", cancel: "Cancel", placeholder: "New recipe name...", initialValue: null, maxLength: 25, keyboard: Keyboard.Plain);
-            //}
-            //while (string.IsNullOrWhiteSpace(newName));
                
             newName = await App.Current.MainPage.DisplayPromptAsync(
             "Save Recipe", "Name your new recipe...", accept: "Save", cancel: "Cancel", placeholder: "New recipe name...", initialValue: null, maxLength: 25, keyboard: Keyboard.Plain);

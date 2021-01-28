@@ -12,7 +12,7 @@ namespace LGRM.XamF.Pages
         {
             this.kind = Kind.Condiment;
             base.SetPerKind(this.kind);
-            skiaPainter = new SkiaPainter(kind); //Do not move this up!  It can break App.xaml StaticResoures.
+            skiaPainter = new SkiaPainter(kind); 
         }
     }
 }

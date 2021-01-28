@@ -201,7 +201,7 @@ namespace LGRM.XamF.ViewModels
         }
 
 
-        public override async Task Initialize(object parameter)
+        public override async Task Initialize(object parameter) // parameter = object[]{ this.kind, List<int>("Catalog Numbers to be Preselected") }
         {
             var paramerters = (object[])parameter;
             this.kind = (Kind)paramerters[0] switch
@@ -220,11 +220,15 @@ namespace LGRM.XamF.ViewModels
             SelectedCategory = Categories[0];
             DisplayedGroceries = GetGroceries();
 
+            foreach (var g in DisplayedGroceries)
+            {
+                g.IsSelected = false;
+            }
+
             SelectedItems.Clear();
             priorCatNums.Clear();
 
             var toBePreselected = (List<int>)paramerters[1];
-
             if (toBePreselected.Count > 0)
             {
                 var preselectGroceries = Task.Run(() => PreselectGroceries(toBePreselected));
@@ -245,7 +249,7 @@ namespace LGRM.XamF.ViewModels
                             var indexToHighlight = DisplayedGroceries.IndexOf(g);
                             SelectedItems.Add(DisplayedGroceries[indexToHighlight]);
                             priorCatNums.Add(catNum);
-                        g.IsSelected = true;
+                            g.IsSelected = true;
 
                         }
                     }

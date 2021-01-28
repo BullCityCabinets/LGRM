@@ -59,8 +59,10 @@ namespace LGRM.XamF.ViewModels
                 RecipesDisplayed.Add(item);
             }
 
-            MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnUpdateSavedRecipesList);   // ...from Lists of Groceries            
             CreateNewRecipeCommand = new Command(OnCreateNewRecipeCommand);
+
+            MessagingCenter.Subscribe<RecipeVM>(this, "UpdateSavedRecipesList", OnUpdateSavedRecipesList);   // ...from Lists of Groceries            
+            
         }
         #endregion ...CTOR
 
@@ -71,52 +73,30 @@ namespace LGRM.XamF.ViewModels
             _navigationService.NavigateTo("RecipePage");
         }
 
-
-
-
-        //public ICommand LoadSelectedRecipeCommand
-        //{
-        //    get
-        //    {
-        //        return new Command((e) =>
-        //        {
-
-        //            IsLoading = true;
-        //            var RecipeIdToLoad = (e as Recipe).Id;
-        //            _navigationService.NavigateTo("RecipePage", RecipeIdToLoad);
-        //            IsLoading = false;
-        //        });
-        //    }
-        //}
+        private void OnUpdateSavedRecipesList() //Called by Delete Buttons
+        {
+            RecipesDisplayed = App.MySQLite.GetAllRecipeMetas();
+        }
+        private void OnUpdateSavedRecipesList(RecipeVM obj) //Called by RecipeVM Messages 
+        {
+            RecipesDisplayed = App.MySQLite.GetAllRecipeMetas(); 
+        }
 
         public async Task LoadSelectedRecipe(int recipeToLoadId)
-        {
-            //IsLoading = true;
-            await _navigationService.NavigateTo("RecipePage", recipeToLoadId);
-            //IsLoading = false;
-        }
-        //bool _isLoading { get; set; }
-        //public bool IsLoading
-        //{
-        //    get => _isLoading;
-        //    set
-        //    {
-        //        _isLoading = value;
-        //        OnPropertyChanged("IsLoading");
-        //    }
-        //}
-
-
-
-
-        private void OnUpdateSavedRecipesList(RecipeVM obj)
-        {
-            RecipesDisplayed = App.MySQLite.GetAllRecipeMetas(); //Update the list
+        {            
+            await _navigationService.NavigateTo("RecipePage", recipeToLoadId);         
         }
 
-
-
-
+        public async Task VerifyDeleteSelectedRecipeDialog(int recipeToLoadId)
+        {
+            var answer = await App.Current.MainPage.DisplayAlert("Delete", "Remove this recipe?", "Yes", "No");
+            if (answer == true) // "Yes"
+            {
+                await Task.Run(() => App.MySQLite.DeleteRecipe(recipeToLoadId));
+                OnUpdateSavedRecipesList();
+            }
+        }
+        
 
 
 

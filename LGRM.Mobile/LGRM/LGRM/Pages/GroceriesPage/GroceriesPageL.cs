@@ -12,7 +12,7 @@ namespace LGRM.XamF.Pages
         {
             base.kind = Kind.Lean;
             base.SetPerKind(this.kind);
-            base.skiaPainter = new SkiaPainter(kind); //Do not move this up!  It can break App.xaml StaticResoures.
+            base.skiaPainter = new SkiaPainter(kind); 
             
             
         }

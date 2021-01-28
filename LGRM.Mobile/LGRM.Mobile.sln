@@ -94,9 +94,9 @@ Global
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhone.ActiveCfg = Release|iPhone
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhone.Build.0 = Release|iPhone
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhone.Deploy.0 = Release|iPhone
-		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.Deploy.0 = Release|iPhoneSimulator
+		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.ActiveCfg = Release|iPhone
+		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.Build.0 = Release|iPhone
+		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|iPhoneSimulator.Deploy.0 = Release|iPhone
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|x64.ActiveCfg = Release|iPhoneSimulator
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|x64.Build.0 = Release|iPhoneSimulator
 		{F2248B4A-B29C-482B-A516-8429D7925CE7}.Release|x64.Deploy.0 = Release|iPhoneSimulator

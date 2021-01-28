@@ -26,7 +26,7 @@
 
 	/* 2: LGRM.Android.dll */
 	/* uncompressed_file_size */
-	.word	334336
+	.word	334848
 	/* loaded */
 	.byte	0
 	/* data */
@@ -35,7 +35,7 @@
 
 	/* 3: LGRM.Data.dll */
 	/* uncompressed_file_size */
-	.word	168960
+	.word	168448
 	/* loaded */
 	.byte	0
 	/* data */
@@ -53,7 +53,7 @@
 
 	/* 5: LGRM.XamF.dll */
 	/* uncompressed_file_size */
-	.word	112128
+	.word	119808
 	/* loaded */
 	.byte	0
 	/* data */
@@ -413,7 +413,7 @@
 
 	/* 45: Xamarin.AndroidX.Fragment.dll */
 	/* uncompressed_file_size */
-	.word	162816
+	.word	162304
 	/* loaded */
 	.byte	0
 	/* data */
@@ -593,7 +593,7 @@
 
 	/* 65: Xamarin.AndroidX.VectorDrawable.dll */
 	/* uncompressed_file_size */
-	.word	6656
+	.word	6144
 	/* loaded */
 	.byte	0
 	/* data */

@@ -188,6 +188,7 @@
                 <Setter Property="BorderWidth" Value="0" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="TextTransform" Value="None" />
             </Style>
 
 
